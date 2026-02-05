@@ -8,7 +8,7 @@ library work;
 entity power2round is
   port (
     r  : in    polynominal;
-    d  : in    signed(18 downto 0);
+    d  : in    coefficient;
     r0 : out   polynominal;
     r1 : out   polynominal
   );
@@ -16,27 +16,27 @@ end entity power2round;
 
 architecture a_power2round of power2round is
 
-  signal d_squared : signed(18 downto 0);
+  signal two_pow_d : coefficient;
 
   component decompose is
     port (
-      r  : in    signed(18 downto 0);
-      a  : in    signed(18 downto 0);
-      r0 : out   signed(18 downto 0);
-      r1 : out   signed(18 downto 0)
+      r  : in    coefficient;
+      a  : in    coefficient;
+      r0 : out   coefficient;
+      r1 : out   coefficient
     );
   end component decompose;
 
 begin
 
-  d_squared <= "10" srl to_integer(d);
+  two_pow_d <= "10" srl to_integer(d);
 
   test : for i in 0 to polynominal'length generate
 
     decompose_inst : component decompose
       port map (
         r  => r(i),
-        a  => d_squared,
+        a  => two_pow_d,
         r0 => r0(i),
         r1 => r1(i)
       );
