@@ -22,6 +22,8 @@ package globals is
   constant omega  : integer := 75;
   constant n      : integer := 256;
 
+  constant ntt_tree_depth : integer := 8; -- log2(n)
+
   -- generictypes
 
   subtype modq_t is integer range 0 to q - 1;
@@ -32,9 +34,9 @@ package globals is
 
   subtype y1_coefficient is signed(y1_len downto 0);
 
-  type natural_polynom is array (natural range <>) of coefficient;
+  type natural_polynomial is array (natural range <>) of coefficient;
 
-  subtype polynominal is natural_polynom (n - 1 downto 0);
+  subtype polynomial is natural_polynomial (n - 1 downto 0);
 
   type small_polynominal is array (n - 1 downto 0) of small_coefficient;
 
@@ -46,19 +48,19 @@ package globals is
 
   type s2 is array (k - 1 downto 0)  of small_polynominal;
 
-  type vector is array (k - 1 downto 0)  of polynominal;
+  type vector is array (k - 1 downto 0)  of polynomial;
 
   type a_array is array (k - 1 downto 0) of vector;
 
-  type t is array (l - 1 downto 0) of polynominal;
+  type t is array (l - 1 downto 0) of polynomial;
 
   -- Signing
 
   type y is array (l - 1 downto 0) of y2_polynominal;
 
-  type w is array (k - 1 downto 0) of polynominal;
+  type w is array (k - 1 downto 0) of polynomial;
 
-  type z is array (l - 1 downto 0) of polynominal;
+  type z is array (l - 1 downto 0) of polynomial;
 
 -- Verification
 

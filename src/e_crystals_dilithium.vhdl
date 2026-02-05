@@ -16,18 +16,19 @@ architecture a_crystals_dilithium of e_crystals_dilithium is
 
   component ntt_root is
     port (
-    a     : in    polynominal;
-    ntt_a : out   polynominal
+      a     : in    polynomial;
+      ntt_a : out   polynomial
     );
   end component ntt_root;
-    signal a : polynominal := (others => (others => '0'));
+
+  signal a : polynomial := (others => (others => '0'));
 
 begin
 
-    test: ntt_root
-     port map(
-        a => a,
-        ntt_a => open
+  test : component ntt_root
+    port map (
+      a     => a,
+      ntt_a => open
     );
 
 end architecture a_crystals_dilithium;

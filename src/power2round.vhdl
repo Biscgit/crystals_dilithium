@@ -7,10 +7,10 @@ library work;
 
 entity power2round is
   port (
-    r  : in    polynominal;
+    r  : in    polynomial;
     d  : in    coefficient;
-    r0 : out   polynominal;
-    r1 : out   polynominal
+    r0 : out   polynomial;
+    r1 : out   polynomial
   );
 end entity power2round;
 
@@ -31,7 +31,7 @@ begin
 
   two_pow_d <= "10" srl to_integer(d);
 
-  test : for i in 0 to polynominal'length generate
+  test : for i in 0 to polynomial'length generate
 
     decompose_inst : component decompose
       port map (

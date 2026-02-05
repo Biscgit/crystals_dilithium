@@ -7,8 +7,9 @@ library work;
 
 entity ntt_root is
   port (
-    a     : in    polynominal;
-    ntt_a : out   polynominal
+    clock : in    std_logic;
+    a     : in    polynomial;
+    ntt_a : out   polynomial
   );
 end entity ntt_root;
 
@@ -21,22 +22,37 @@ architecture a_ntt_root of ntt_root is
       size      : natural
     );
     port (
-      a     : in    natural_polynom(size - 1 downto 0);
-      ntt_a : out   natural_polynom(size - 1 downto 0)
+      clock   : in    std_logic;
+      counter : in    natural;
+      a       : in    natural_polynomial(size - 1 downto 0);
+      ntt_a   : out   natural_polynomial(size - 1 downto 0)
     );
   end component ntt_node;
 
+  signal proc_a : polynomial;
+
 begin
+
+  p_ntt : process (clock) is
+  begin
+
+    if rising_edge(clock) then
+      proc_a <= a;
+    end if;
+
+  end process p_ntt;
 
   ntt : component ntt_node
     generic map (
-      zeta_expo => 256,
-      depth     => 8,
-      size      => 256
+      zeta_expo => n,
+      depth     => ntt_tree_depth,
+      size      => n
     )
     port map (
-      a     => a,
-      ntt_a => ntt_a
+      clock   => clock,
+      counter => 8,
+      a       => proc_a,
+      ntt_a   => ntt_a
     );
 
 end architecture a_ntt_root;
