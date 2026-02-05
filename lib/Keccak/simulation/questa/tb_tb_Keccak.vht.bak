@@ -1,0 +1,154 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_misc.all;
+
+entity tb_tb_Keccak is
+end entity;
+
+architecture rtl of tb_tb_Keccak is
+    component tb_Keccak is
+    port (
+        CLOCK_100:   in	std_logic;
+        keccak_cmd_wr_data: in  std_logic_vector(7 downto 0);
+        keccak_cmd_wr:  in  std_logic;
+        keccak_cmd_co:  in  std_logic;
+        keccak_in_wr:  in  std_logic;
+        keccak_in_co:  in  std_logic;
+        keccak_in_wr_data: in   std_logic_vector(63 downto 0);
+        cryptocore_reset: in std_logic;
+        tb_buffer_full: out std_logic;
+        tb_core_ready:  out std_logic
+    );
+end component tb_Keccak;
+
+    signal CLOCK_100: std_logic :='0';
+    signal keccak_in_co, keccak_cmd_wr, keccak_cmd_co, keccak_in_wr : std_logic;
+    signal keccak_in_wr_data: std_logic_vector(63 downto 0);
+    signal keccak_cmd_wr_data: std_logic_vector(7 downto 0);
+    signal tb_buffer_full: std_logic;
+    signal tb_core_ready: std_logic;
+    signal cryptocore_reset: std_logic :='1';
+begin
+    
+    TEST_BENCH: tb_Keccak
+    port map (
+        CLOCK_100            =>   CLOCK_100,
+        keccak_cmd_wr_data  =>   keccak_cmd_wr_data,
+        keccak_cmd_wr       =>   keccak_cmd_wr,
+        keccak_cmd_co       =>   keccak_cmd_co,
+        keccak_in_wr        =>   keccak_in_wr,
+        keccak_in_co        =>   keccak_in_co,
+        keccak_in_wr_data   =>   keccak_in_wr_data,
+        cryptocore_reset    =>   cryptocore_reset,
+        tb_buffer_full      =>   tb_buffer_full,
+        tb_core_ready       =>   tb_core_ready
+    );
+    
+    CLOCK_100 <= not CLOCK_100 after 5 ns;
+    
+    p_stimulus: process
+	
+		procedure P_sync_app(constant c_loop: integer) is
+			variable v_count: integer := 0;
+		begin
+			loop_cnt: while v_count <= c_loop loop
+			wait until rising_edge(CLOCK_100);
+				v_count := v_count + 1;
+			end loop loop_cnt;
+		end procedure P_sync_app;	
+	
+		procedure P_stable is
+		begin
+			
+			cryptocore_reset <= '1';
+			wait for 15 ns;
+			cryptocore_reset <= '0';
+		end procedure P_stable;
+
+        procedure P_Fill_Keccak_Buffer(constant c_keccak_in_wr_data: std_logic_vector(63 downto 0)) is
+        begin
+            keccak_in_wr_data <= c_keccak_in_wr_data;
+            keccak_in_co <= '1';
+            keccak_in_wr <= '1';
+            wait for 10 ns;
+            keccak_in_co <= '0';
+            keccak_in_wr <= '0';
+            keccak_in_wr_data <= (others => '0');
+        end procedure P_Fill_Keccak_Buffer;
+    
+
+        procedure P_Set_Keccak_CMD(constant c_keccak_cmd_wr_data: std_logic_vector(7 downto 0)) is
+        begin
+            keccak_cmd_wr_data <= c_keccak_cmd_wr_data;
+            keccak_cmd_co <= '1';
+            keccak_cmd_wr <= '1';
+            wait for 10 ns;
+            keccak_cmd_co <= '0';
+            keccak_cmd_wr <= '0';
+            keccak_cmd_wr_data <= (others => '0');
+        end procedure P_Set_Keccak_CMD;
+		
+	begin
+	
+		P_stable;
+		P_sync_app(1);
+		P_Set_Keccak_CMD("00000001");
+        P_sync_app(1);
+        P_Fill_Keccak_Buffer(x"1111111111111111");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"2222222222222222");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(10);
+		P_Fill_Keccak_Buffer(x"3333333333333333");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"4444444444444444");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"5555555555555555");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"6666666666666666");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"7777777777777777");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"8888888888888888");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"9999999999999999");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"aaaaaaaaaaaaaaaa");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"bbbbbbbbbbbbbbbb");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"cccccccccccccccc");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"dddddddddddddddd");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"eeeeeeeeeeeeeeee");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"ffffffffffffffff");
+        P_Set_Keccak_CMD("00000010");
+        P_sync_app(1);
+		P_Fill_Keccak_Buffer(x"0102030405060708");
+        P_Set_Keccak_CMD("00000010");
+        wait until tb_core_ready = '1';
+	P_sync_app(2)
+	P_Set_Keccak_CMD("00000100");
+        P_sync_app(100);	
+		
+		assert false report "--- END OF SIMULATION ---" severity failure;
+		
+	end process p_stimulus;
+
+    
+end architecture rtl;

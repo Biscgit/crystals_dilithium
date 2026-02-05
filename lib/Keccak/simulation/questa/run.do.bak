@@ -1,0 +1,4 @@
+vcom -reportprogress 300 -work work C:/intelFPGA_lite/Testing/tb_Keccak.vhd
+vcom -reportprogress 300 -work work C:/intelFPGA_lite/Testing/simulation/questa/tb_tb_Keccak.vht
+vsim -voptargs=+acc work.tb_tb_keccak
+do wave.do

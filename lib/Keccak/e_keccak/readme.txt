@@ -1,0 +1,1 @@
+Keccak Implementierung von https://keccak.team/hardware.html entnommen

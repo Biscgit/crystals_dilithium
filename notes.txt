@@ -1,0 +1,68 @@
+mod in vhdl? -> mod on integer exists (not syn) Simon used simple minus
+polynomial (als vector/matrix)
+
+q = 2**23 − 2**13 + 1
+n = 256
+(k, l) = (8,7)
+η = 2
+γ1 = 2**19
+τ = 60 β = τη = 120
+H : {0,1}* ⟶ Bτ
+
+# Key gen
+A => Matrix Größe k(rows) x l(columns), each poli with x**n; n < q
+s1 => Vector Größe l, each poli with x**n; n < q; || s1 || <= η
+s2 => Vector Größe k, each poli with x**n; n < q; || s1 || <= η
+
+t = A * s1 + s2
+
+Pub Key: A, t
+Priv Key: s1, s2
+
+# Signing
+y => Vector Größe l, max pol size γ1 (not including -γ1)
+
+w = A * y
+w1 = HightBits(w)
+c = H(M||w1)                            -> Big M problematic -> Use H(M instead)
+z = y + c * s1
+
+Response: c, z
+
+# Verification
+z = y + c * s1 -> A*z = A*y + c(A * s1) = w + c(t * s2) -> A*z - c*t = w - c*s2
+
+HighBits(w - c*s2) = HighBits(w)        ----> LowBits(w -c*s2) need to be "sufficiently small"
+
+w'1 = HighBits(A*z - c*t)
+
+c = H(M||w'1)
+
+
+# NTT
+c = NTT**-1(NTT(a) ° NTT(b)) == c = a * b           -> ° => component-wise multiplication
+NTT(a) = (a(sera), a(sera**3), a(sera**5), a(sera**7), a(sera**(2n-1)))
+NTT(c) = (a(sera)*b(sera), a(sera**3)*b(sera**3), a(sera**5)*b(sera**5), a(sera**7)*b(sera**7), a(sera**n-1)*b(sera**n-1))
+
+a(sera**i) = a(x) mod (x - sera ** i)
+
+a(x) = aL(x) * aR(x)*x**4
+
+a0(x) = a(x) mod (x ** 4 - sera ** 4) = aL(x) + aR(x) * sera ** 4
+a1(x) = a(x) mod (x ** 4 + sera ** 4) = aL(x) - aR(x) * sera ** 4
+
+a00(x) = a0(x) mod (x ** 2 - sera ** 2) = a0L(x) + a0R(x) * sera ** 2
+a01(x) = a0(x) mod (x ** 2 + sera ** 2) = a0L(x) - a0R(x) * sera ** 2
+a10(x) = a1(x) mod (x ** 2 - sera ** 6) = a1L(x) + a1R(x) * sera ** 6
+a11(x) = a1(x) mod (x ** 2 + sera ** 6) = a1L(x) - a1R(x) * sera ** 6
+
+a000(x) = a00(x) mod (x - sera     ) = a00L(x) + a00R(x) * sera
+a001(x) = a00(x) mod (x + sera     ) = a00L(x) - a00R(x) * sera
+a010(x) = a01(x) mod (x - sera ** 5) = a01L(x) + a01R(x) * sera ** 5
+a011(x) = a01(x) mod (x + sera ** 5) = a01L(x) - a01R(x) * sera ** 5
+a100(x) = a10(x) mod (x - sera ** 3) = a10L(x) + a10R(x) * sera ** 3
+a101(x) = a10(x) mod (x + sera ** 3) = a10L(x) - a10R(x) * sera ** 3
+a110(x) = a11(x) mod (x - sera ** 7) = a11L(x) + a11R(x) * sera ** 7
+a111(x) = a11(x) mod (x + sera ** 7) = a11L(x) - a11R(x) * sera ** 7
+
+...

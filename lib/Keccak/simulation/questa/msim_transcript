@@ -1,0 +1,225 @@
+# Reading pref.tcl
+# //  Questa Intel Starter FPGA Edition-64
+# //  Version 2021.2 win64 Apr 14 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# do tb_Keccak_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Questa Intel Starter FPGA Edition-64 vmap 2021.2 Lib Mapping Utility 2021.04 Apr 14 2021
+# vmap work rtl_work 
+# Copying c:/intelfpga_lite/22.1std/questa_fse/win64/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_globals.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:18:47 on Oct 22,2025
+# vcom -reportprogress 300 -93 -work work C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_globals.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package std_logic_arith
+# -- Compiling package keccak_globals
+# End time: 14:18:47 on Oct 22,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_round_constants_gen.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:18:47 on Oct 22,2025
+# vcom -reportprogress 300 -93 -work work C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_round_constants_gen.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package std_logic_arith
+# -- Loading package keccak_globals
+# -- Compiling entity keccak_round_constants_gen
+# -- Compiling architecture rtl of keccak_round_constants_gen
+# End time: 14:18:47 on Oct 22,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_round.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:18:47 on Oct 22,2025
+# vcom -reportprogress 300 -93 -work work C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_round.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package std_logic_arith
+# -- Loading package keccak_globals
+# -- Compiling entity keccak_round
+# -- Compiling architecture rtl of keccak_round
+# End time: 14:18:48 on Oct 22,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_buffer.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:18:48 on Oct 22,2025
+# vcom -reportprogress 300 -93 -work work C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_buffer.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package std_logic_arith
+# -- Loading package keccak_globals
+# -- Compiling entity keccak_buffer
+# -- Compiling architecture rtl of keccak_buffer
+# End time: 14:18:48 on Oct 22,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:18:48 on Oct 22,2025
+# vcom -reportprogress 300 -93 -work work C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package std_logic_arith
+# -- Loading package keccak_globals
+# -- Compiling entity keccak
+# -- Compiling architecture rtl of keccak
+# End time: 14:18:48 on Oct 22,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_rc_wrapper.vhd}
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:18:48 on Oct 22,2025
+# vcom -reportprogress 300 -93 -work work C:/intelFPGA_lite/Abgabe/Keccak/e_keccak/keccak_rc_wrapper.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package std_logic_arith
+# -- Loading package keccak_globals
+# -- Compiling entity keccak_rc_wrapper
+# -- Compiling architecture rtl of keccak_rc_wrapper
+# End time: 14:18:48 on Oct 22,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+do run.do
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:18:51 on Oct 22,2025
+# vcom -reportprogress 300 -work work ../../tb_Keccak.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity tb_Keccak
+# -- Compiling architecture rtl of tb_Keccak
+# End time: 14:18:51 on Oct 22,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:18:51 on Oct 22,2025
+# vcom -reportprogress 300 -work work tb_tb_Keccak.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity tb_tb_Keccak
+# -- Compiling architecture rtl of tb_tb_Keccak
+# End time: 14:18:51 on Oct 22,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -voptargs="+acc" work.tb_tb_keccak 
+# Start time: 14:18:51 on Oct 22,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: ../../tb_Keccak.vhd(226): (vopt-3473) Component instance "KECCAK_OUT_FIFO : module_fifo_regs_no_flags" is not bound.
+#         Region: /tb_tb_Keccak/TEST_BENCH
+# ** Note: (vopt-143) Recognized 2 FSMs in architecture body "tb_Keccak(rtl)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading work.tb_tb_keccak(rtl)#1
+# Loading work.tb_keccak(rtl)#1
+# Loading ieee.std_logic_arith(body)
+# Loading work.keccak_globals
+# Loading work.keccak(rtl)#1
+# Loading work.keccak_round(rtl)#1
+# Loading work.keccak_round_constants_gen(rtl)#1
+# Loading work.keccak_buffer(rtl)#1
+# Loading work.keccak_rc_wrapper(rtl)#1
+# ** Warning: (vsim-3473) Component instance "KECCAK_OUT_FIFO : module_fifo_regs_no_flags" is not bound.
+#    Time: 0 ns  Iteration: 0  Instance: /tb_tb_keccak/TEST_BENCH File: ../../tb_Keccak.vhd
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_tb_keccak/TEST_BENCH/KECCAK_OUT_FIFO/i_wr_data'.
+# Executing ONERROR command at macro ./wave.do line 49
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_tb_keccak/TEST_BENCH/KECCAK_OUT_FIFO/o_rd_data'.
+# Executing ONERROR command at macro ./wave.do line 50
+# ** UI-Msg: (vish-4014) No objects found matching '/tb_tb_keccak/TEST_BENCH/KECCAK_OUT_FIFO/r_FIFO_DATA'.
+# Executing ONERROR command at macro ./wave.do line 51
+# ** Failure: --- END OF SIMULATION ---
+#    Time: 4495 ns  Iteration: 0  Process: /tb_tb_keccak/p_stimulus File: tb_tb_Keccak.vht
+# Break in Process p_stimulus at tb_tb_Keccak.vht line 204
+add wave -position 10  sim:/tb_tb_keccak/TEST_BENCH/KECCAK_CORE/rc_sel
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/intelFPGA_lite/Abgabe/Keccak/simulation/questa/wave.do
+do run.do
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:22:31 on Oct 22,2025
+# vcom -reportprogress 300 -work work ../../tb_Keccak.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity tb_Keccak
+# -- Compiling architecture rtl of tb_Keccak
+# End time: 14:22:31 on Oct 22,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Intel Starter FPGA Edition-64 vcom 2021.2 Compiler 2021.04 Apr 14 2021
+# Start time: 14:22:31 on Oct 22,2025
+# vcom -reportprogress 300 -work work tb_tb_Keccak.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity tb_tb_Keccak
+# -- Compiling architecture rtl of tb_tb_Keccak
+# End time: 14:22:31 on Oct 22,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 14:22:31 on Oct 22,2025, Elapsed time: 0:03:40
+# Errors: 1, Warnings: 2
+# vsim -voptargs="+acc" work.tb_tb_keccak 
+# Start time: 14:22:31 on Oct 22,2025
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading work.tb_tb_keccak(rtl)#1
+# Loading work.tb_keccak(rtl)#1
+# Loading ieee.std_logic_arith(body)
+# Loading work.keccak_globals
+# Loading work.keccak(rtl)#1
+# Loading work.keccak_round(rtl)#1
+# Loading work.keccak_round_constants_gen(rtl)#1
+# Loading work.keccak_buffer(rtl)#1
+# Loading work.keccak_rc_wrapper(rtl)#1
+# ** Warning: (vsim-3473) Component instance "KECCAK_OUT_FIFO : module_fifo_regs_no_flags" is not bound.
+#    Time: 0 ns  Iteration: 0  Instance: /tb_tb_keccak/TEST_BENCH File: ../../tb_Keccak.vhd
+# ** Failure: --- END OF SIMULATION ---
+#    Time: 4495 ns  Iteration: 0  Process: /tb_tb_keccak/p_stimulus File: tb_tb_Keccak.vht
+# Break in Process p_stimulus at tb_tb_Keccak.vht line 204
+# End time: 14:23:16 on Oct 22,2025, Elapsed time: 0:00:45
+# Errors: 1, Warnings: 1
