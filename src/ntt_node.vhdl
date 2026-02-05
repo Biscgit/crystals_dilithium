@@ -8,6 +8,7 @@ library work;
 entity ntt_node is
   generic (
     zeta_expo : natural;
+    zeta_pow  : modq_t;
     depth     : natural;
     size      : natural
   );
@@ -21,15 +22,9 @@ end entity ntt_node;
 
 architecture a_ntt_node of ntt_node is
 
-  type big_number_array is array (size - 1 downto 0) of signed(3 * q_len - 1 downto 0);
-
-  constant zeta_pow : modq_t := (zeta ** zeta_expo) mod q;
-
-  signal proc_a      : natural_polynomial(size - 1 downto 0);
-  signal sub_a1_temp : big_number_array;
-  signal sub_a0_temp : big_number_array;
-  signal sub_a1      : natural_polynomial((size / 2) - 1 downto 0);
-  signal sub_a0      : natural_polynomial((size / 2) - 1 downto 0);
+  signal proc_a : natural_polynomial(size - 1 downto 0);
+  signal sub_a1 : natural_polynomial((size / 2) - 1 downto 0);
+  signal sub_a0 : natural_polynomial((size / 2) - 1 downto 0);
 
   signal rigth_result : natural_polynomial((size / 2) - 1 downto 0);
   signal left_result  : natural_polynomial((size / 2) - 1 downto 0);
@@ -37,6 +32,7 @@ architecture a_ntt_node of ntt_node is
   component ntt_node is
     generic (
       zeta_expo : natural;
+      zeta_pow  : modq_t;
       depth     : natural;
       size      : natural
     );
@@ -86,7 +82,7 @@ begin
     calc_a1 : for i in 0 to size / 2 - 1 generate
       signal prod : signed(q_len * 2 - 1 downto 0);
     begin
-      prod <= resize(proc_a(size / 2 + i) * zeta_pow, prod'length);
+      prod <= resize(proc_a(size / 2 + i) * to_integer(zeta_pow), prod'length);
 
       sub_a0(i) <= mod_add(proc_a(i), prod);
       sub_a1(i) <= mod_sub(proc_a(i), prod);
@@ -94,23 +90,23 @@ begin
 
     right_node : component ntt_node
       generic map (
-        zeta_expo => zeta_expo / 2, depth => depth - 1, size => size / 2
+        zeta_expo => zeta_expo / 2, zeta_pow => to_unsigned((zeta ** zeta_expo) mod q, 48), depth => depth - 1, size => size / 2
       )
       port map (
         clock   => clock,
         counter => counter,
-        a       => proc_a((size / 2) - 1 downto 0),
+        a       => sub_a0,
         ntt_a   => rigth_result
       );
 
     left_node : component ntt_node
       generic map (
-        zeta_expo => zeta_expo / 2 + n / 2, depth => depth - 1, size => size / 2
+        zeta_expo => zeta_expo / 2 + n / 2, zeta_pow => to_unsigned((zeta ** zeta_expo) mod q, 48), depth => depth - 1, size => size / 2
       )
       port map (
         clock   => clock,
         counter => counter,
-        a       => proc_a(size - 1 downto (size / 2)),
+        a       => sub_a1,
         ntt_a   => left_result
       );
 
@@ -119,7 +115,7 @@ begin
   end generate normal_node;
 
   leaf_node : if (depth = 0) generate
-    ntt_a <= a;
+    ntt_a <= proc_a;
   end generate leaf_node;
 
 end architecture a_ntt_node;

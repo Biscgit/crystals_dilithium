@@ -22,11 +22,11 @@ package globals is
   constant omega  : integer := 75;
   constant n      : integer := 256;
 
-  constant ntt_tree_depth : integer := 8; -- log2(n)
+  constant ntt_tree_depth : integer := 7; -- log2(n)
 
   -- generictypes
 
-  subtype modq_t is integer range 0 to q - 1;
+  subtype modq_t is unsigned(47 downto 0);
 
   subtype coefficient is signed(q_len - 1 downto 0);
 

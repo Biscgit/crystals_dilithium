@@ -19,6 +19,7 @@ architecture a_ntt_root of ntt_root is
   component ntt_node is
     generic (
       zeta_expo : natural;
+      zeta_pow  : modq_t;
       depth     : natural;
       size      : natural
     );
@@ -80,12 +81,13 @@ begin
   ntt : component ntt_node
     generic map (
       zeta_expo => n,
+      zeta_pow  => to_unsigned((zeta ** n) mod q, 48),
       depth     => ntt_tree_depth,
       size      => n
     )
     port map (
       clock   => clock,
-      counter => 8,
+      counter => counter,
       a       => proc_a,
       ntt_a   => ntt_a
     );
