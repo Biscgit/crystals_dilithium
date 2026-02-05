@@ -7,8 +7,9 @@ library work;
 
 entity e_crystals_dilithium is
   port (
-    sw   : in    std_logic_vector(9 downto 0);
-    ledr : out   std_logic_vector(9 downto 0)
+    clock_50 : in    std_logic;
+    sw       : in    std_logic_vector(9 downto 0);
+    ledr     : out   std_logic_vector(9 downto 0)
   );
 end entity e_crystals_dilithium;
 
@@ -16,8 +17,10 @@ architecture a_crystals_dilithium of e_crystals_dilithium is
 
   component ntt_root is
     port (
-      a     : in    polynomial;
-      ntt_a : out   polynomial
+      clock    : in    std_logic;
+      a        : in    polynomial;
+      ntt_a    : out   polynomial;
+      finished : out   std_logic
     );
   end component ntt_root;
 
@@ -27,8 +30,10 @@ begin
 
   test : component ntt_root
     port map (
-      a     => a,
-      ntt_a => open
+      clock    => clock_50,
+      a        => a,
+      ntt_a    => open,
+      finished => open
     );
 
 end architecture a_crystals_dilithium;
