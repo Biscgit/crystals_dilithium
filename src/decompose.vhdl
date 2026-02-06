@@ -16,11 +16,11 @@ end entity decompose;
 
 architecture a_decompose of decompose is
 
-  signal r0_temp : signed(18 downto 0);
+  signal r0_temp : coefficient;
 
 begin
 
-  r0_temp <= r when r < '0' & a(18 downto 1) else -- r mods a
+  r0_temp <= r when r < '0' & a(q_len - 1 downto 1) else -- r mods a
              r - a;
 
   r1 <= (r - r0_temp) / a;

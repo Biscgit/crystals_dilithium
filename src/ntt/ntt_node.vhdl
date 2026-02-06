@@ -25,6 +25,7 @@ architecture a_ntt_node of ntt_node is
   constant zeta_pow : modq_t := zetas(zeta_expo);
 
   signal proc_a : natural_polynomial(size - 1 downto 0);
+  signal temp_a : signed(2 * q_len - 1 downto 0);
 
   component ntt_node is
     generic (
@@ -143,7 +144,8 @@ begin
 
     end process p_ntt_step;
 
-    ntt_a(0) <= resize((proc_a(0) * zeta_pow) mod q, q_len);
+    temp_a   <= (proc_a(0) * zeta_pow) mod q;
+    ntt_a(0) <= resize(temp_a, q_len);
     slv_done <= slv_active;
   end generate leaf_node;
 
