@@ -81,10 +81,10 @@ begin
     signal left_result  : natural_polynomial((size / 2) - 1 downto 0);
   begin
 
-    calc_a1 : for i in 0 to size / 2 - 1 generate
+    calc_a1 : for i in 0 to size - 1 generate
       signal prod : signed(q_len * 2 - 1 downto 0);
     begin
-      prod <= resize(proc_a(size / 2 + i) * zeta_pow, prod'length);
+      prod <= resize(proc_a(size + i) * zeta_pow, prod'length);
 
       sub_a0(i) <= mod_add(proc_a(i), prod);
       sub_a1(i) <= mod_sub(proc_a(i), prod);
