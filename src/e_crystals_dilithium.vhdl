@@ -24,7 +24,7 @@ architecture a_crystals_dilithium of e_crystals_dilithium is
     );
   end component ntt_root;
 
-  signal a : polynomial := (others => (others => '0'));
+  signal a : polynomial := (others => (others => '1'));
 
 begin
 
