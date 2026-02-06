@@ -13,8 +13,8 @@ entity ntt_node is
   );
   port (
     clock      : in    std_logic;
-    a          : in    natural_polynomial(2 * size - 1 downto 0);
-    ntt_a      : out   natural_polynomial(2 * size - 1 downto 0);
+    a          : in    natural_polynomial(size - 1 downto 0);
+    ntt_a      : out   natural_polynomial(size - 1 downto 0);
     slv_active : in    std_logic;
     slv_done   : out   std_logic
   );
@@ -24,7 +24,7 @@ architecture a_ntt_node of ntt_node is
 
   constant zeta_pow : modq_t := zetas(zeta_expo);
 
-  signal proc_a : natural_polynomial(2 * size - 1 downto 0);
+  signal proc_a : natural_polynomial(size - 1 downto 0);
 
   component ntt_node is
     generic (
@@ -33,8 +33,8 @@ architecture a_ntt_node of ntt_node is
     );
     port (
       clock      : in    std_logic;
-      a          : in    natural_polynomial(2 * size - 1 downto 0);
-      ntt_a      : out   natural_polynomial(2 * size - 1 downto 0);
+      a          : in    natural_polynomial(size - 1 downto 0);
+      ntt_a      : out   natural_polynomial(size - 1 downto 0);
       slv_active : in    std_logic;
       slv_done   : out   std_logic
     );
@@ -66,11 +66,11 @@ architecture a_ntt_node of ntt_node is
 begin
 
   normal_node : if (size > 1) generate
-    signal sub_a1 : natural_polynomial((size) - 1 downto 0);
-    signal sub_a0 : natural_polynomial((size) - 1 downto 0);
+    signal sub_a1 : natural_polynomial(size / 2 - 1 downto 0);
+    signal sub_a0 : natural_polynomial(size / 2 - 1 downto 0);
 
-    signal rigth_result : natural_polynomial(size - 1 downto 0);
-    signal left_result  : natural_polynomial(size - 1 downto 0);
+    signal rigth_result : natural_polynomial(size / 2 - 1 downto 0);
+    signal left_result  : natural_polynomial(size / 2 - 1 downto 0);
 
     signal right_active : std_logic;
     signal left_active  : std_logic;
@@ -92,10 +92,10 @@ begin
 
     end process p_ntt_step;
 
-    calc_a1 : for i in 0 to size - 1 generate
+    calc_a1 : for i in 0 to size / 2 - 1 generate
       signal prod : signed(q_len * 2 - 1 downto 0);
     begin
-      prod <= resize(proc_a(size + i) * zeta_pow, prod'length);
+      prod <= resize(proc_a(size / 2 + i) * zeta_pow, prod'length);
 
       sub_a0(i) <= mod_add(proc_a(i), prod);
       sub_a1(i) <= mod_sub(proc_a(i), prod);
@@ -131,7 +131,19 @@ begin
   end generate normal_node;
 
   leaf_node : if (size = 1) generate
-    ntt_a    <= proc_a;
+
+    p_ntt_step : process (clock) is
+    begin
+
+      if rising_edge(clock) then
+        if (slv_active = '1') then
+          proc_a <= a;
+        end if;
+      end if;
+
+    end process p_ntt_step;
+
+    ntt_a(0) <= resize((proc_a(0) * zeta_pow) mod q, q_len);
     slv_done <= slv_active;
   end generate leaf_node;
 
