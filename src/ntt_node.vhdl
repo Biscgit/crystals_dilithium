@@ -9,14 +9,14 @@ library work;
 entity ntt_node is
   generic (
     zeta_expo : natural;
-    depth     : natural;
     size      : natural
   );
   port (
-    clock   : in    std_logic;
-    counter : in    natural;
-    a       : in    natural_polynomial(2 * size - 1 downto 0);
-    ntt_a   : out   natural_polynomial(2 * size - 1 downto 0)
+    clock      : in    std_logic;
+    a          : in    natural_polynomial(2 * size - 1 downto 0);
+    ntt_a      : out   natural_polynomial(2 * size - 1 downto 0);
+    slv_active : in    std_logic;
+    slv_done   : out   std_logic
   );
 end entity ntt_node;
 
@@ -29,20 +29,20 @@ architecture a_ntt_node of ntt_node is
   component ntt_node is
     generic (
       zeta_expo : natural;
-      depth     : natural;
       size      : natural
     );
     port (
-      clock   : in    std_logic;
-      counter : in    natural;
-      a       : in    natural_polynomial(2 * size - 1 downto 0);
-      ntt_a   : out   natural_polynomial(2 * size - 1 downto 0)
+      clock      : in    std_logic;
+      a          : in    natural_polynomial(2 * size - 1 downto 0);
+      ntt_a      : out   natural_polynomial(2 * size - 1 downto 0);
+      slv_active : in    std_logic;
+      slv_done   : out   std_logic
     );
   end component ntt_node;
 
   function mod_add (
     a,
-    b : signed
+    b: signed
   ) return signed is
   begin
 
@@ -52,7 +52,7 @@ architecture a_ntt_node of ntt_node is
 
   function mod_sub (
     a,
-    b : signed
+    b: signed
   ) return signed is
   begin
 
@@ -60,14 +60,25 @@ architecture a_ntt_node of ntt_node is
 
   end function mod_sub;
 
+  signal right_done : std_logic;
+  signal left_done  : std_logic;
+
+  signal right_active : std_logic;
+  signal left_active  : std_logic;
+
 begin
 
   p_ntt_step : process (clock) is
   begin
 
     if rising_edge(clock) then
-      if (counter = depth) then
-        proc_a <= a;
+      right_active <= '0';
+      left_active  <= '0';
+
+      if (slv_active = '1') then
+        proc_a       <= a;
+        right_active <= '1';
+        left_active  <= '1';
       end if;
     end if;
 
@@ -77,8 +88,8 @@ begin
     signal sub_a1 : natural_polynomial((size) - 1 downto 0);
     signal sub_a0 : natural_polynomial((size) - 1 downto 0);
 
-    signal rigth_result : natural_polynomial((size) - 1 downto 0);
-    signal left_result  : natural_polynomial((size) - 1 downto 0);
+    signal rigth_result : natural_polynomial(size - 1 downto 0);
+    signal left_result  : natural_polynomial(size - 1 downto 0);
   begin
 
     calc_a1 : for i in 0 to size - 1 generate
@@ -92,32 +103,36 @@ begin
 
     right_node : component ntt_node
       generic map (
-        zeta_expo => zeta_expo / 2, depth => depth - 1, size => size / 2
+        zeta_expo => zeta_expo / 2, size => size / 2
       )
       port map (
-        clock   => clock,
-        counter => counter,
-        a       => sub_a0,
-        ntt_a   => rigth_result
+        clock      => clock,
+        a          => sub_a0,
+        ntt_a      => rigth_result,
+        slv_active => right_active,
+        slv_done   => right_done
       );
 
     left_node : component ntt_node
       generic map (
-        zeta_expo => zeta_expo / 2 + n / 2, depth => depth - 1, size => size / 2
+        zeta_expo => zeta_expo / 2 + n / 2, size => size / 2
       )
       port map (
-        clock   => clock,
-        counter => counter,
-        a       => sub_a1,
-        ntt_a   => left_result
+        clock      => clock,
+        a          => sub_a1,
+        ntt_a      => left_result,
+        slv_active => left_active,
+        slv_done   => left_done
       );
 
-    ntt_a <= rigth_result & left_result;
+    ntt_a    <= rigth_result & left_result;
+    slv_done <= right_done and left_done;
 
   end generate normal_node;
 
   leaf_node : if (size = 1) generate
-    ntt_a <= proc_a;
+    ntt_a    <= proc_a;
+    slv_done <= slv_active;
   end generate leaf_node;
 
 end architecture a_ntt_node;

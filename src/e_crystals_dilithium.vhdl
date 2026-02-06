@@ -15,25 +15,27 @@ end entity e_crystals_dilithium;
 
 architecture a_crystals_dilithium of e_crystals_dilithium is
 
-  component ntt_root is
+  component ntt_controller is
     port (
-      clock    : in    std_logic;
-      a        : in    polynomial;
-      ntt_a    : out   polynomial;
-      finished : out   std_logic
+      clock     : in    std_logic;
+      input     : in    polynomial;
+      output    : out   polynomial;
+      start_ntt : in    std_logic;
+      finished  : out   std_logic
     );
-  end component ntt_root;
+  end component ntt_controller;
 
   signal a : polynomial := (others => (others => '1'));
 
 begin
 
-  test : component ntt_root
+  test : component ntt_controller
     port map (
-      clock    => clock_50,
-      a        => a,
-      ntt_a    => open,
-      finished => open
+      clock     => clock_50,
+      input     => a,
+      output    => open,
+      start_ntt => '1',
+      finished  => open
     );
 
 end architecture a_crystals_dilithium;
