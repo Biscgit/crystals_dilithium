@@ -63,26 +63,7 @@ architecture a_ntt_node of ntt_node is
   signal right_done : std_logic;
   signal left_done  : std_logic;
 
-  signal right_active : std_logic;
-  signal left_active  : std_logic;
-
 begin
-
-  p_ntt_step : process (clock) is
-  begin
-
-    if rising_edge(clock) then
-      right_active <= '0';
-      left_active  <= '0';
-
-      if (slv_active = '1') then
-        proc_a       <= a;
-        right_active <= '1';
-        left_active  <= '1';
-      end if;
-    end if;
-
-  end process p_ntt_step;
 
   normal_node : if (size > 1) generate
     signal sub_a1 : natural_polynomial((size) - 1 downto 0);
@@ -90,7 +71,26 @@ begin
 
     signal rigth_result : natural_polynomial(size - 1 downto 0);
     signal left_result  : natural_polynomial(size - 1 downto 0);
+
+    signal right_active : std_logic;
+    signal left_active  : std_logic;
   begin
+
+    p_ntt_step : process (clock) is
+    begin
+
+      if rising_edge(clock) then
+        right_active <= '0';
+        left_active  <= '0';
+
+        if (slv_active = '1') then
+          proc_a       <= a;
+          right_active <= '1';
+          left_active  <= '1';
+        end if;
+      end if;
+
+    end process p_ntt_step;
 
     calc_a1 : for i in 0 to size - 1 generate
       signal prod : signed(q_len * 2 - 1 downto 0);
