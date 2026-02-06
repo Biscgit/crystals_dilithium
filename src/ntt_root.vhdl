@@ -25,8 +25,8 @@ architecture a_ntt_root of ntt_root is
     port (
       clock   : in    std_logic;
       counter : in    natural;
-      a       : in    natural_polynomial(size - 1 downto 0);
-      ntt_a   : out   natural_polynomial(size - 1 downto 0)
+      a       : in    natural_polynomial(2 * size - 1 downto 0);
+      ntt_a   : out   natural_polynomial(2 * size - 1 downto 0)
     );
   end component ntt_node;
 

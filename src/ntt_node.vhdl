@@ -15,8 +15,8 @@ entity ntt_node is
   port (
     clock   : in    std_logic;
     counter : in    natural;
-    a       : in    natural_polynomial(size - 1 downto 0);
-    ntt_a   : out   natural_polynomial(size - 1 downto 0)
+    a       : in    natural_polynomial(2 * size - 1 downto 0);
+    ntt_a   : out   natural_polynomial(2 * size - 1 downto 0)
   );
 end entity ntt_node;
 
@@ -24,7 +24,7 @@ architecture a_ntt_node of ntt_node is
 
   constant zeta_pow : modq_t := zetas(zeta_expo);
 
-  signal proc_a : natural_polynomial(size - 1 downto 0);
+  signal proc_a : natural_polynomial(2 * size - 1 downto 0);
 
   component ntt_node is
     generic (
@@ -35,8 +35,8 @@ architecture a_ntt_node of ntt_node is
     port (
       clock   : in    std_logic;
       counter : in    natural;
-      a       : in    natural_polynomial(size - 1 downto 0);
-      ntt_a   : out   natural_polynomial(size - 1 downto 0)
+      a       : in    natural_polynomial(2 * size - 1 downto 0);
+      ntt_a   : out   natural_polynomial(2 * size - 1 downto 0)
     );
   end component ntt_node;
 
@@ -74,11 +74,11 @@ begin
   end process p_ntt_step;
 
   normal_node : if (size > 1) generate
-    signal sub_a1 : natural_polynomial((size / 2) - 1 downto 0);
-    signal sub_a0 : natural_polynomial((size / 2) - 1 downto 0);
+    signal sub_a1 : natural_polynomial((size) - 1 downto 0);
+    signal sub_a0 : natural_polynomial((size) - 1 downto 0);
 
-    signal rigth_result : natural_polynomial((size / 2) - 1 downto 0);
-    signal left_result  : natural_polynomial((size / 2) - 1 downto 0);
+    signal rigth_result : natural_polynomial((size) - 1 downto 0);
+    signal left_result  : natural_polynomial((size) - 1 downto 0);
   begin
 
     calc_a1 : for i in 0 to size - 1 generate
