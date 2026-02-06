@@ -79,9 +79,9 @@ begin
 
   ntt : component ntt_node
     generic map (
-      zeta_expo => n / 2,
+      zeta_expo => n,
       depth     => ntt_tree_depth,
-      size      => n / 2
+      size      => n
     )
     port map (
       clock   => clock,
