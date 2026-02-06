@@ -34,8 +34,8 @@ begin
       clock     => clock_50,
       input     => a,
       output    => open,
-      start_ntt => '1',
-      finished  => open
+      start_ntt => sw(0),
+      finished  => ledr(0)
     );
 
 end architecture a_crystals_dilithium;
