@@ -31,7 +31,7 @@ architecture a_ntt_controller of ntt_controller is
     );
   end component ntt_node;
 
-  type t_ntt_state is (s_idle, s_computing, s_propagation, s_done);
+  type t_ntt_state is (s_idle, s_computing, s_done);
 
   signal slv_ntt_state : t_ntt_state;
 
@@ -41,6 +41,9 @@ architecture a_ntt_controller of ntt_controller is
 
 begin
     finished <= '1' when slv_ntt_state = s_done else '0';
+
+  finished <= '1' when slv_ntt_state = s_done else
+              '0';
 
   p_ntt_fsm : process (clock, start_ntt) is
   begin
@@ -53,15 +56,12 @@ begin
           slv_polynomial      <= input;             -- store input
           slv_computing_start <= '1';
         end if;
-      -- s_computing ntt
+      -- s_computing ntt and propagate up in last step
       elsif (slv_ntt_state = s_computing) then
         slv_computing_start <= '0';
         if (slv_computing_done = '1') then
-          slv_ntt_state <= s_propagation;
+          slv_ntt_state <= s_done;
         end if;
-      -- propagating result back up
-      elsif (slv_ntt_state = s_propagation) then
-        slv_ntt_state <= s_done;
       -- signaling that result can now be read
       elsif (slv_ntt_state = s_done) then
         slv_ntt_state <= s_idle;
