@@ -1,0 +1,319 @@
+# //  Questa Altera Starter FPGA Edition-64
+# //  Version 2025.2 linux_x86_64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# ** Note: (vsim-220) '/opt/intelFPGA/25.1/questa_fse/linux_x86_64/../modelsim.ini' is used as the ini file.
+# vsim work.tb_ntt_controller 
+# Start time: 19:38:05 on Feb 06,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-220) '/opt/intelFPGA/25.1/questa_fse/linux_x86_64/../modelsim.ini' is used as the ini file.
+# ** Warning: ../src/ntt/ntt_controller.vhdl(75): (vopt-3473) Component instance "ntt : ntt_node" is not bound.
+#         Region: /tb_ntt_controller/dut
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.globals
+# Loading work.ntt_results
+# Loading work.tb_ntt_controller(sim)#1
+# ** Warning: (vsim-3473) Component instance "ntt : ntt_node" is not bound.
+#    Time: 0 ns  Iteration: 0  Instance: /tb_ntt_controller/dut File: ../src/ntt/ntt_controller.vhdl
+run -all
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
+#    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
+# Break key hit
+# Simulation stop requested.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ls
+# ntt_results_tb.vhdl
+# tb_ntt_controller.vhdl
+# transcript
+# work
+# End time: 19:44:39 on Feb 06,2026, Elapsed time: 0:06:34
+# Errors: 0, Warnings: 131
