@@ -76,8 +76,9 @@ begin
   normal_node : if (size > 1) generate
     signal rigth_result : natural_polynomial((size / 2) - 1 downto 0);
     signal left_result  : natural_polynomial((size / 2) - 1 downto 0);
-    signal rigth_a      : natural_polynomial((size / 2) - 1 downto 0);
-    signal left_a       : natural_polynomial((size / 2) - 1 downto 0);
+
+    signal rigth_a : natural_polynomial((size / 2) - 1 downto 0);
+    signal left_a  : natural_polynomial((size / 2) - 1 downto 0);
   begin
 
     left_node : component inv_ntt_node
@@ -102,9 +103,12 @@ begin
         ntt_a   => rigth_result
       );
 
-    rigth_a <= (left_result & rigth_result);
-    left_a  <= (left_result & rigth_result);
-    ntt_a   <= left_a & rigth_a;
+    calc_a1 : for i in 0 to size - 1 generate
+      left_a(i)  <= mod_add(left_result(i), rigth_result(i));
+      rigth_a(i) <= (mod_sub(left_result(i), rigth_result(i)) * zeta_pow) mod q;
+    end generate calc_a1;
+
+    ntt_a <= left_a & rigth_a;
 
   end generate normal_node;
 

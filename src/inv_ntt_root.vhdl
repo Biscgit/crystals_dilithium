@@ -16,7 +16,7 @@ end entity inv_ntt_root;
 
 architecture a_inv_ntt_root of ntt_root is
 
-  component inv_ntt_node is
+  component ntt_node is
     generic (
       zeta_expo : natural;
       depth     : natural;
@@ -28,7 +28,7 @@ architecture a_inv_ntt_root of ntt_root is
       a       : in    natural_polynomial(size - 1 downto 0);
       ntt_a   : out   natural_polynomial(size - 1 downto 0)
     );
-  end component inv_ntt_node;
+  end component ntt_node;
 
   component countdown_clock is
     generic (
@@ -77,7 +77,7 @@ begin
 
   end process p_ntt;
 
-  ntt : component inv_ntt_node
+  ntt : component ntt_node
     generic map (
       zeta_expo => n,
       depth     => ntt_tree_depth,
