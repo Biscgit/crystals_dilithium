@@ -40,6 +40,7 @@ architecture a_ntt_controller of ntt_controller is
   signal slv_computing_start : std_logic;
 
 begin
+    finished <= '1' when slv_ntt_state = s_done else '0';
 
   p_ntt_fsm : process (clock, start_ntt) is
   begin
@@ -82,7 +83,7 @@ begin
       a          => slv_polynomial,
       ntt_a      => output,
       slv_active => slv_computing_start,
-      slv_done   => finished
+      slv_done   => slv_computing_done
     );
 
 end architecture a_ntt_controller;
