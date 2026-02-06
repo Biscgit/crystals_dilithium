@@ -128,11 +128,13 @@ set_location_assignment PIN_W15 -to KEY[2]
 set_location_assignment PIN_Y16 -to KEY[3]
 set_location_assignment PIN_AF14 -to CLOCK_50
 
+set_global_assignment -name VHDL_FILE src/ntt/ntt_root.vhdl
+set_global_assignment -name VHDL_FILE src/ntt/ntt_node.vhdl
+set_global_assignment -name VHDL_FILE src/ntt/ntt_mux.vhdl
+set_global_assignment -name VHDL_FILE src/ntt/ntt_controller.vhdl
 set_global_assignment -name VHDL_FILE src/zeta_lut.vhdl
 set_global_assignment -name SDC_FILE clock.sdc
 set_global_assignment -name VHDL_FILE src/countdown_clock.vhd
-set_global_assignment -name VHDL_FILE src/ntt_node.vhdl
-set_global_assignment -name VHDL_FILE src/ntt_root.vhdl
 set_global_assignment -name VHDL_FILE src/globals.vhdl
 set_global_assignment -name VHDL_FILE src/power2round.vhdl
 set_global_assignment -name VHDL_FILE src/decompose.vhdl

@@ -132,6 +132,7 @@ begin
 
   leaf_node : if (size = 1) generate
     ntt_a(0) <= resize((proc_a(0) * zeta_pow) mod q, q_len);
+    slv_done <= slv_active;
   end generate leaf_node;
 
 end architecture a_ntt_node;

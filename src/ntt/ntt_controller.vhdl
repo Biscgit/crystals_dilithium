@@ -24,8 +24,8 @@ architecture a_ntt_controller of ntt_controller is
     );
     port (
       clock      : in    std_logic;
-      a          : in    natural_polynomial(2 * size - 1 downto 0);
-      ntt_a      : out   natural_polynomial(2 * size - 1 downto 0);
+      a          : in    natural_polynomial(size - 1 downto 0);
+      ntt_a      : out   natural_polynomial(size - 1 downto 0);
       slv_active : in    std_logic;
       slv_done   : out   std_logic
     );
@@ -75,7 +75,7 @@ begin
   ntt : component ntt_node
     generic map (
       zeta_expo => n / 2,
-      size      => n / 2
+      size      => n
     )
     port map (
       clock      => clock,
