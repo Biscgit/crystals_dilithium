@@ -31,6 +31,8 @@ architecture a_ntt_controller of ntt_controller is
     );
   end component ntt_node;
 
+  -- constant clock_cycles: n + 2
+
   type t_ntt_state is (s_idle, s_computing, s_done);
 
   signal slv_ntt_state : t_ntt_state;
