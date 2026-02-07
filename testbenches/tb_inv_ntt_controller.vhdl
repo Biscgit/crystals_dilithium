@@ -28,13 +28,21 @@ begin
   ------------------------------------------------------------------
   -- DUT
   ------------------------------------------------------------------
-  dut : entity work.ntt_controller
+  gen : entity work.ntt_controller
     port map (
       clock     => clock,
       input     => input_poly,
       output    => output_poly,
       start_ntt => start_ntt,
       finished  => finished
+    );
+
+  dut : entity work.inv_ntt_root
+    port map (
+      clock    => clock,
+      input    => output_poly,
+      output   => open,
+      finished => finished
     );
 
   ------------------------------------------------------------------

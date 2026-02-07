@@ -14,8 +14,12 @@ def bitrev(x, bits):
 
 
 def mont_reduce(a: int) -> int:
-    t = (a * QINV) & 0xFFFFFFFF
+    print(a)
+    t = a * QINV
+    print(t)
+    t = t & 0xFFFFFFFF
     t = (a - t * q) >> 32
+    print(t)
     return t
 
 
