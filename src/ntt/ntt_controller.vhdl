@@ -31,6 +31,8 @@ architecture a_ntt_controller of ntt_controller is
     );
   end component ntt_node;
 
+  -- constant clock_cycles: n + 2
+
   type t_ntt_state is (s_idle, s_computing, s_done);
 
   signal slv_ntt_state : t_ntt_state;
@@ -40,7 +42,6 @@ architecture a_ntt_controller of ntt_controller is
   signal slv_computing_start : std_logic;
 
 begin
-    finished <= '1' when slv_ntt_state = s_done else '0';
 
   finished <= '1' when slv_ntt_state = s_done else
               '0';

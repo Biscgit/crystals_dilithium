@@ -29,33 +29,37 @@ package globals is
 
   subtype coefficient is signed(q_len - 1 downto 0);
 
-  subtype small_coefficient is signed(eta downto 0);
+  -- subtype small_coefficient is signed(eta downto 0);
 
   subtype y1_coefficient is signed(y1_len downto 0);
 
   type natural_polynomial is array (natural range <>) of coefficient;
 
-  subtype polynomial is natural_polynomial (n - 1 downto 0);
+  subtype polynomial is natural_polynomial(n - 1 downto 0);
 
-  type small_polynominal is array (n - 1 downto 0) of small_coefficient;
+  -- type small_polynominal is array (n - 1 downto 0) of small_coefficient;
 
-  type y2_polynominal is array (n - 1 downto 0) of y1_coefficient;
+  type y2_polynomial is array (n - 1 downto 0) of y1_coefficient;
 
   -- Key Gen
 
-  type s1 is array (l - 1 downto 0)  of small_polynominal;
+  type natural_vector is array (natural range <>) of polynomial;
 
-  type s2 is array (k - 1 downto 0)  of small_polynominal;
+  subtype s1 is natural_vector(l - 1 downto 0);
 
-  type vector is array (l - 1 downto 0)  of polynomial;
+  subtype s2 is natural_vector(k - 1 downto 0);
 
-  type a_array is array (k - 1 downto 0) of vector;
+  subtype vector is natural_vector (l - 1 downto 0);
 
-  type t is array (l - 1 downto 0) of polynomial;
+  subtype t is natural_vector(k - 1 downto 0);
+
+  type natural_array is array (natural range <>) of vector;
+
+  subtype a_array is natural_array(k - 1 downto 0);
 
   -- Signing
 
-  type y is array (l - 1 downto 0) of y2_polynominal;
+  type y is array (l - 1 downto 0) of y2_polynomial;
 
   type w is array (k - 1 downto 0) of polynomial;
 

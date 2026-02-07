@@ -7,9 +7,9 @@ library work;
 
 entity polynomial_add is
   port (
-    input_a : in    polynomial;
-    input_b : in    polynomial;
-    output  : out   polynomial
+    input_a : in    natural_polynomial;
+    input_b : in    natural_polynomial;
+    output  : out   natural_polynomial
   );
 end entity polynomial_add;
 
@@ -17,7 +17,7 @@ architecture a_polynomial_add of polynomial_add is
 
 begin
 
-  g_vector_sum : for i in polynomial'range generate
+  g_vector_sum : for i in input_a'range generate
     output(i) <= input_a(i) + input_b(i);
   end generate g_vector_sum;
 

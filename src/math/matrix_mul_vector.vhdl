@@ -20,17 +20,17 @@ architecture a_matrix_mul_vector of matrix_mul_vector is
 
   component polynomial_element_mul is
     port (
-      input_a : in    polynomial;
-      input_b : in    polynomial;
-      output  : out   polynomial
+      input_a : in    natural_polynomial;
+      input_b : in    natural_polynomial;
+      output  : out   natural_polynomial
     );
   end component polynomial_element_mul;
 
   component polynomial_add is
     port (
-      input_a : in    polynomial;
-      input_b : in    polynomial;
-      output  : out   polynomial
+      input_a : in    natural_polynomial;
+      input_b : in    natural_polynomial;
+      output  : out   natural_polynomial
     );
   end component polynomial_add;
 
@@ -52,10 +52,10 @@ begin
 
   output <= slv_result;
 
-  -- store multiplication result                                                                        slv_index_row);
+  -- store multiplication result
   p_multiply_elements : component polynomial_element_mul
     port map (
-      input_a => input_matrix(slv_index_col, slv_index_row),
+      input_a => input_matrix(slv_index_col)(slv_index_row),
       input_b => input_vector(slv_index_row),
       output  => slv_mul_result
     );
@@ -69,7 +69,7 @@ begin
     );
 
   -- iter through matrix
-  p_matrix_mul : process (clock, t_state) is
+  p_matrix_mul : process (clock, slv_state) is
   begin
 
     if rising_edge(clock) then
@@ -77,8 +77,8 @@ begin
         if (start_mul = '1') then
           slv_state <= run;
 
-          slv_result    <= (others => (others => '0'));
-          slv_temporary <= (others => (others => '0'));
+          slv_result <= (others => (others => (others => '0')));
+          -- slv_temporary <= (others => (others => 0));
 
           slv_index_col <= 0;
           slv_index_row <= 0;
@@ -96,7 +96,7 @@ begin
         -- multiply and add other to other
         else
           slv_current_mul <= slv_next_mul;
-          slv_next_mul    <= (others => '0');
+          slv_next_mul    <= (others => (others => '0'));
         end if;
 
         -- calculate
