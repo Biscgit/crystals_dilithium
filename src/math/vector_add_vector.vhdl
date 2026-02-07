@@ -13,9 +13,13 @@ entity vector_add_vector is
   );
 end entity vector_add_vector;
 
-architecture a_vector_add_vectcor of vector_add_vectcor is
+architecture a_vector_add_vector of vector_add_vector is
+
+  signal slv_result : vector;
 
 begin
+
+  output <= slv_result;
 
   gen_row : for i in vector'range generate
   begin
@@ -29,4 +33,4 @@ begin
 
   end generate gen_row;
 
-end architecture a_vector_add_vectcor;
+end architecture a_vector_add_vector;
