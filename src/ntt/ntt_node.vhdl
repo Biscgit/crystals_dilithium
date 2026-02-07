@@ -95,7 +95,7 @@ begin
 
     calc_a1 : for i in 0 to size / 2 - 1 generate
       signal prod         : signed(q_len * 2 - 1 downto 0);
-      signal temp_reduced : signed(prod'length + 15 - 1 downto 0);
+      signal temp_reduced : signed(prod'length * 2 - 1 downto 0);
       signal reduced      : signed(32 - 1 downto 0);
       signal reduced1     : signed(32 + q_len - 1 downto 0);
       signal reduced2     : signed(q_len - 1 downto 0);
