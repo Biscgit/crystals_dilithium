@@ -24,7 +24,7 @@ architecture a_ntt_node of ntt_node is
 
   constant zeta_pow : modq_t := zetas(zeta_expo);
 
-  signal proc_a : natural_polynomial(size - 1 downto 0);
+  signal proc_a : natural_polynomial(size - 1 downto 0) := (others => (others => '0'));
   signal temp_a : signed(2 * q_len - 1 downto 0);
 
   component ntt_node is

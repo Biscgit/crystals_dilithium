@@ -21,7 +21,7 @@ architecture sim of tb_ntt_controller is
   signal input_poly  : polynomial := (others => (others => '0'));
   signal output_poly : polynomial;
 
-  constant clk_period : time := 10 ns;
+  constant clk_period : time := 20 ns;
 
 begin
 
