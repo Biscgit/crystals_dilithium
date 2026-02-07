@@ -17,6 +17,8 @@ vcom src/zeta_lut.vhdl
 
 vcom src/ntt/ntt_controller.vhdl
 #vcom src/ntt/ntt_mux.vhdl
+vcom src/ntt/mod_add.vhdl
+vcom src/ntt/mod_sub.vhdl
 vcom src/ntt/ntt_node.vhdl
 #vcom src/ntt/ntt_root.vhdl
 #vcom src/ntt/inv_ntt_node.vhdl
@@ -34,6 +36,7 @@ vsim work.tb_ntt_controller
 
 # optional waves
 add wave -r *
+radix decimal
 
 # run until finish
 run -all

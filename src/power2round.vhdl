@@ -29,7 +29,7 @@ architecture a_power2round of power2round is
 
 begin
 
-  two_pow_d <= shift_left(to_signed(1, q_len), to_integer(d));
+  two_pow_d <= shift_left(to_signed(1, q_len + 1), to_integer(d));
 
   test : for i in 0 to polynomial'length generate
 

@@ -18,7 +18,7 @@ architecture sim of tb_ntt_controller is
   signal start_ntt : std_logic := '0';
   signal finished  : std_logic;
 
-  signal input_poly  : polynomial;
+  signal input_poly  : polynomial := (others => (others => '0'));
   signal output_poly : polynomial;
 
   constant clk_period : time := 10 ns;
@@ -55,7 +55,7 @@ begin
     -- load test vector
     ------------------------------------------------------------
     for i in 0 to n-1 loop
-      input_poly(i) <= to_signed(values(i), q_len);
+      input_poly(i) <= to_signed(values(i), q_len+1);
     end loop;
 
     ------------------------------------------------------------

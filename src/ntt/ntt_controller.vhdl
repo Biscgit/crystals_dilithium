@@ -40,7 +40,6 @@ architecture a_ntt_controller of ntt_controller is
   signal slv_computing_start : std_logic;
 
 begin
-    finished <= '1' when slv_ntt_state = s_done else '0';
 
   finished <= '1' when slv_ntt_state = s_done else
               '0';

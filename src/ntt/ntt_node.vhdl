@@ -41,25 +41,21 @@ architecture a_ntt_node of ntt_node is
     );
   end component ntt_node;
 
-  function mod_add (
-    a,
-    b: signed
-  ) return signed is
-  begin
+  component mod_add is
+    port (
+      a   : in    coefficient;
+      b   : in    signed(32 - 1 downto 0);
+      sum : out   coefficient
+    );
+  end component mod_add;
 
-    return resize((a + b) mod q, q_len);
-
-  end function mod_add;
-
-  function mod_sub (
-    a,
-    b: signed
-  ) return signed is
-  begin
-
-    return resize((a - b) mod q, q_len);
-
-  end function mod_sub;
+  component mod_sub is
+    port (
+      a    : in    coefficient;
+      b    : in    signed(32 - 1 downto 0);
+      diff : out   coefficient
+    );
+  end component mod_sub;
 
   signal right_done : std_logic;
   signal left_done  : std_logic;
@@ -95,18 +91,31 @@ begin
 
     calc_a1 : for i in 0 to size / 2 - 1 generate
       signal prod         : signed(q_len * 2 - 1 downto 0);
-      signal temp_reduced : signed(prod'length + 15 - 1 downto 0);
-      signal reduced      : signed(32 - 1 downto 0);
-      signal reduced1     : signed(32 + q_len - 1 downto 0);
-      signal reduced2     : signed(q_len - 1 downto 0);
+      signal temp_reduced : signed(prod'length * 2 - 1 downto 0);
+      signal reduced      : signed(64 - 1 downto 0);
+      signal reduced1     : signed(reduced'length * 2 - 1 downto 0);
+      signal reduced2     : signed(32 - 1 downto 0);
     begin
       prod         <= resize(proc_a(size / 2 + i) * to_signed(zeta_pow, q_len), prod'length);
       temp_reduced <= prod * qinv;
-      reduced      <= temp_reduced(prod'length downto 32);
+      reduced      <= x"0000_0000" & temp_reduced(31 downto 0);
       reduced1     <= (prod - reduced * q);
-      reduced2     <= reduced1(reduced1'length downto 32);
-      sub_a0(i)    <= mod_add(proc_a(i), reduced2);
-      sub_a1(i)    <= mod_sub(proc_a(i), reduced2);
+      reduced2     <= reduced1(64 - 1 downto 32);
+
+      compute_a0 : component mod_add
+        port map (
+          a   => proc_a(i),
+          b   => reduced2,
+          sum => sub_a0(i)
+        );
+
+      compute_a1 : component mod_sub
+        port map (
+          a    => proc_a(i),
+          b    => reduced2,
+          diff => sub_a1(i)
+        );
+
     end generate calc_a1;
 
     left_node : component ntt_node
@@ -151,9 +160,9 @@ begin
 
     end process p_ntt_step;
 
-    temp_a   <= (proc_a(0) * zeta_pow) mod q;
-    ntt_a(0) <= resize(temp_a, q_len);
-    -- ntt_a(0) <= proc_a(0);
+    -- temp_a <= (proc_a(0) * zeta_pow) mod q;
+    -- ntt_a(0) <= resize(temp_a, q_len);
+    ntt_a(0) <= proc_a(0);
     slv_done <= slv_active;
   end generate leaf_node;
 

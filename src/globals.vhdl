@@ -27,7 +27,7 @@ package globals is
 
   subtype modq_t is integer range 0 to q - 1;
 
-  subtype coefficient is signed(q_len - 1 downto 0);
+  subtype coefficient is signed(q_len downto 0);
 
   subtype small_coefficient is signed(eta downto 0);
 
