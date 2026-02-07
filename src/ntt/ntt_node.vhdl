@@ -63,8 +63,8 @@ architecture a_ntt_node of ntt_node is
 begin
 
   normal_node : if (size > 1) generate
-    signal sub_a1 : natural_polynomial(size / 2 - 1 downto 0):= (others => (others => '0'));
-    signal sub_a0 : natural_polynomial(size / 2 - 1 downto 0):= (others => (others => '0'));
+    signal sub_a1 : natural_polynomial(size / 2 - 1 downto 0) := (others => (others => '0'));
+    signal sub_a0 : natural_polynomial(size / 2 - 1 downto 0) := (others => (others => '0'));
 
     signal right_result : natural_polynomial(size / 2 - 1 downto 0);
     signal left_result  : natural_polynomial(size / 2 - 1 downto 0);
@@ -90,29 +90,29 @@ begin
     end process p_ntt_step;
 
     calc_a1 : for i in 0 to size / 2 - 1 generate
-      signal prod         : signed(q_len * 2 downto 0):= (others => '0');
-      signal temp_reduced : signed(prod'length * 2 - 1 downto 0):= (others => '0');
-      signal reduced      : signed(64 - 1 downto 0):= (others => '0');
-      signal reduced1     : signed(reduced'length * 2 - 1 downto 0):= (others => '0');
-      signal reduced2     : signed(32 - 1 downto 0):= (others => '0');
+      signal product         : signed(q_len * 2 downto 0) := (others => '0');
+      signal prod_times_qinv : signed(product'length * 2 - 1 downto 0) := (others => '0');
+      signal k_factor        : signed(64 - 1 downto 0) := (others => '0');
+      signal correction_term : signed(k_factor'length * 2 - 1 downto 0) := (others => '0');
+      signal montgomery_out  : signed(32 - 1 downto 0) := (others => '0');
     begin
-      prod         <= resize(proc_a(size / 2 + i) * to_signed(zeta_pow, q_len+1), prod'length);
-      temp_reduced <= prod * qinv;
-      reduced      <= x"0000_0000" & temp_reduced(31 downto 0);
-      reduced1     <= (prod - reduced * q);
-      reduced2     <= reduced1(64 - 1 downto 32);
+      product         <= resize(proc_a(size / 2 + i) * to_signed(zeta_pow, q_len + 1), product'length);
+      prod_times_qinv <= product * qinv;
+      k_factor        <= x"0000_0000" & prod_times_qinv(31 downto 0);
+      correction_term <= (product - k_factor * q);
+      montgomery_out  <= correction_term(64 - 1 downto 32);
 
       compute_a0 : component mod_add
         port map (
           a   => proc_a(i),
-          b   => reduced2,
+          b   => montgomery_out,
           sum => sub_a0(i)
         );
 
       compute_a1 : component mod_sub
         port map (
           a    => proc_a(i),
-          b    => reduced2,
+          b    => montgomery_out,
           diff => sub_a1(i)
         );
 

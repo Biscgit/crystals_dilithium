@@ -29,7 +29,7 @@
 # Loading work.tb_ntt_controller(sim)#1
 # ** Warning: (vsim-3473) Component instance "ntt : ntt_node" is not bound.
 #    Time: 0 ns  Iteration: 0  Instance: /tb_ntt_controller/dut File: ../src/ntt/ntt_controller.vhdl
-run -all
+run - all
 # ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
 #    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
 # ** Warning: NUMERIC_STD.TO_SIGNED: vector truncated
@@ -290,25 +290,6 @@ run -all
 #    Time: 50 ns  Iteration: 0  Instance: /tb_ntt_controller
 # Break key hit
 # Simulation stop requested.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ls
 # ntt_results_tb.vhdl
