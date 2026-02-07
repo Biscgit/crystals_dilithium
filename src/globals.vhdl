@@ -21,8 +21,7 @@ package globals is
   constant beta   : integer := tau * eta;
   constant omega  : integer := 75;
   constant n      : integer := 256;
-
-  constant ntt_tree_depth : integer := 8; -- log2(n)
+  constant qinv   : integer := 58728449;
 
   -- generictypes
 

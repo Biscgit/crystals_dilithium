@@ -70,7 +70,7 @@ begin
     signal sub_a1 : natural_polynomial(size / 2 - 1 downto 0);
     signal sub_a0 : natural_polynomial(size / 2 - 1 downto 0);
 
-    signal rigth_result : natural_polynomial(size / 2 - 1 downto 0);
+    signal right_result : natural_polynomial(size / 2 - 1 downto 0);
     signal left_result  : natural_polynomial(size / 2 - 1 downto 0);
 
     signal right_active : std_logic;
@@ -94,39 +94,46 @@ begin
     end process p_ntt_step;
 
     calc_a1 : for i in 0 to size / 2 - 1 generate
-      signal prod : signed(q_len * 2 - 1 downto 0);
+      signal prod         : signed(q_len * 2 - 1 downto 0);
+      signal temp_reduced : signed(prod'length + 15 - 1 downto 0);
+      signal reduced      : signed(32 - 1 downto 0);
+      signal reduced1     : signed(32 + q_len - 1 downto 0);
+      signal reduced2     : signed(q_len - 1 downto 0);
     begin
-      prod <= resize(proc_a(size / 2 + i) * zeta_pow, prod'length);
-
-      sub_a0(i) <= mod_add(proc_a(i), prod);
-      sub_a1(i) <= mod_sub(proc_a(i), prod);
+      prod         <= resize(proc_a(size / 2 + i) * to_signed(zeta_pow, q_len), prod'length);
+      temp_reduced <= prod * qinv;
+      reduced      <= temp_reduced(prod'length downto 32);
+      reduced1     <= (prod - reduced * q);
+      reduced2     <= reduced1(reduced1'length downto 32);
+      sub_a0(i)    <= mod_add(proc_a(i), reduced2);
+      sub_a1(i)    <= mod_sub(proc_a(i), reduced2);
     end generate calc_a1;
 
-    right_node : component ntt_node
+    left_node : component ntt_node
       generic map (
         zeta_expo => zeta_expo / 2, size => size / 2
       )
       port map (
         clock      => clock,
         a          => sub_a0,
-        ntt_a      => rigth_result,
-        slv_active => right_active,
-        slv_done   => right_done
+        ntt_a      => left_result,
+        slv_active => left_active,
+        slv_done   => left_done
       );
 
-    left_node : component ntt_node
+    right_node : component ntt_node
       generic map (
         zeta_expo => zeta_expo / 2 + n / 2, size => size / 2
       )
       port map (
         clock      => clock,
         a          => sub_a1,
-        ntt_a      => left_result,
-        slv_active => left_active,
-        slv_done   => left_done
+        ntt_a      => right_result,
+        slv_active => right_active,
+        slv_done   => right_done
       );
 
-    ntt_a    <= rigth_result & left_result;
+    ntt_a    <= left_result & right_result;
     slv_done <= right_done and left_done;
 
   end generate normal_node;
@@ -146,6 +153,7 @@ begin
 
     temp_a   <= (proc_a(0) * zeta_pow) mod q;
     ntt_a(0) <= resize(temp_a, q_len);
+    -- ntt_a(0) <= proc_a(0);
     slv_done <= slv_active;
   end generate leaf_node;
 

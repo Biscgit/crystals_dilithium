@@ -76,6 +76,7 @@ begin
     ------------------------------------------------------------
     wait until finished = '1';
     wait until rising_edge(clock);
+    wait until rising_edge(clock);
 
     ------------------------------------------------------------
     -- compare results
@@ -83,7 +84,7 @@ begin
     for i in 0 to n-1 loop
       report "output_poly(" & integer'image(i) & ") = "
                & integer'image(to_integer(output_poly(i)));
-      assert output_poly(i) = results(i)
+      assert output_poly(n-i-1) = results(i)
         report "Mismatch at index "
                & integer'image(i)
                & "  got="
