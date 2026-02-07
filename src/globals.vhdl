@@ -47,7 +47,7 @@ package globals is
 
   type s2 is array (k - 1 downto 0)  of small_polynominal;
 
-  type vector is array (k - 1 downto 0)  of polynomial;
+  type vector is array (l - 1 downto 0)  of polynomial;
 
   type a_array is array (k - 1 downto 0) of vector;
 
