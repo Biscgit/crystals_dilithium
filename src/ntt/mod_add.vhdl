@@ -24,7 +24,8 @@ begin
   tmp <= resize(a, 33) + resize(b, 33);
 
   -- subtract q if overflow
-  sum <= resize(tmp - q_signed, q_len+1) when tmp >= q_signed else
-         resize(tmp, q_len+1);
+  sum <= resize(tmp - q_signed, sum'length) when tmp >= q_signed else -- Too high
+         resize(tmp + q_signed, sum'length) when tmp < 0          else -- Too low (negative)
+         resize(tmp, sum'length);
 
 end architecture a_mod_add;
