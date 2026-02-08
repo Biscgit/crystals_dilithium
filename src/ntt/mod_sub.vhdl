@@ -15,17 +15,28 @@ end entity mod_sub;
 
 architecture a_mod_sub of mod_sub is
 
-  signal   tmp      : signed(32 - 1 downto 0) := (others => '0');
-  constant q_signed : coefficient             := to_signed(q, q_len + 1);
+  signal   tmp        : signed(32 - 1 downto 0) := (others => '0');
+  signal   adjustment : signed(32 downto 0);
+  constant q_signed   : coefficient             := to_signed(q, q_len + 1);
 
 begin
 
   -- compute difference
   tmp <= a - b;
 
-  -- add q if negative
-  diff <= resize(tmp - q_signed, diff'length) when tmp >= q_signed else -- Too high
-          resize(tmp + q_signed, diff'length) when tmp < 0 else         -- Too low (negative)
-          resize(tmp, diff'length);
+  process (tmp) is
+  begin
+
+    if (tmp >= q_signed) then
+      adjustment <= -resize(q_signed, 33);       -- Need to subtract Q
+    elsif (tmp < 0) then
+      adjustment <= resize(q_signed, 33);        -- Need to add Q
+    else
+      adjustment <= (others => '0');             -- No change needed
+    end if;
+
+  end process;
+
+  diff <= resize(tmp + adjustment, diff'length);
 
 end architecture a_mod_sub;
