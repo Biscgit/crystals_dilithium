@@ -22,6 +22,8 @@ architecture a_add_polynomial of e_add_polynomial is
 
   signal slv_state  : t_states;
   signal slv_result : polynomial;
+  signal slv_index  : natural range output'range;
+
 begin
 
   p_add_polynomial : process (clock) is
@@ -33,17 +35,17 @@ begin
       if (slv_state = idle) then
         if (ad_start = '1') then
           slv_state <= add;
+          slv_index <= 0;
         end if;
       --
       elsif (slv_state = add) then
+        if (slv_index >= output'length - 1) then
+          slv_state <= done;
+        else
+          slv_result(slv_index) <= (input_a(slv_index) + input_b(slv_index)) mod q;
+          slv_index             <= slv_index + 1;
+        end if;
 
-        for i in output'range loop
-
-          slv_result(i) <= (input_a(i) + input_b(i)) mod q;
-
-        end loop;
-
-        slv_state <= done;
       --
       elsif (slv_state = done) then
         output      <= slv_result;

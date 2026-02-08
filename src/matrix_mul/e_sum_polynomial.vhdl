@@ -1,11 +1,11 @@
---library ieee;
+-- library ieee;
 --  use ieee.std_logic_1164.all;
 --  use ieee.numeric_std.all;
 --
---library work;
+-- library work;
 --  use work.globals.all;
 --
---entity e_sum_polynomial is
+-- entity e_sum_polynomial is
 --  port (
 --    clock       : in    std_logic;
 --    input_a     : in    polynomial;
@@ -13,9 +13,9 @@
 --    ad_start    : in    std_logic;
 --    ad_finished : out   std_logic
 --  );
---end entity e_sum_polynomial;
+-- end entity e_sum_polynomial;
 --
---architecture a_add_polynomial of e_add_polynomial is
+-- architecture a_add_polynomial of e_add_polynomial is
 --
 --  type t_states is (idle, add, done);
 --
@@ -23,7 +23,7 @@
 --  signal slv_index  : natural range input_a'length - 1 downto 0;
 --  signal slv_result : coefficient;
 --
---begin
+-- begin
 --
 --  p_mul_polynomial : process (clock) is
 --  begin
@@ -58,4 +58,4 @@
 --
 --  end process p_mul_polynomial;
 --
---end architecture a_add_polynomial;
+-- end architecture a_add_polynomial;
