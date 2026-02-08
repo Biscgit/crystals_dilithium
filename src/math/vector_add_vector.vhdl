@@ -27,8 +27,9 @@ begin
     gen_col : for j in polynomial'range generate
 
     begin
-      -- ToDo: adjust mod!
-      output(i)(j) <= (input_vector1(i)(j) + input_vector2(i)(j)) mod q;
+      slv_result(i)(j) <= (input_vector1(i)(j) + input_vector2(i)(j));
+      output(i)(j)     <= slv_result(i)(j) when slv_result(i)(j) < q else
+                          slv_result(i)(j) - q;
     end generate gen_col;
 
   end generate gen_row;
