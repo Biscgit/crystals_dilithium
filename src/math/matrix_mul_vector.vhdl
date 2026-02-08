@@ -8,7 +8,7 @@ library work;
 entity matrix_mul_vector is
   port (
     clock        : in    std_logic;
-    input_matrix : in    a_array;
+    input_matrix : in    t_a_matrix;
     input_vector : in    s1;
     output       : out   s2;
     start_mul    : in    std_logic;
@@ -39,16 +39,18 @@ architecture a_matrix_mul_vector of matrix_mul_vector is
 
   type t_state is (idle, in_multiplication, done_multiplication, done);
 
-  signal slv_state        : t_state;
-  signal slv_input_matrix : a_array;
+  signal slv_state : t_state;
+  -- signal slv_input_matrix : t_a_matrix;
 
   signal slv_index_col : integer range 0 to k - 1;
   signal slv_index_row : integer range 0 to l;
 
   signal slv_mul_result : polynomial;
 
-  signal slv_current_mul : polynomial;
-  signal slv_next_mul    : polynomial;
+  signal slv_current_mul      : polynomial;
+  signal slv_next_mul         : polynomial;
+  signal slv_multiply_input_a : polynomial;
+  signal slv_multiply_input_b : polynomial;
 
   signal slv_result : s2;
 
@@ -64,8 +66,8 @@ begin
     port map (
       clock                => clock,
       start_multiplication => slv_start_multiply_elements,
-      input_a              => slv_input_matrix(slv_index_col)(slv_index_row),
-      input_b              => input_vector(slv_index_row),
+      input_a              => slv_multiply_input_a,
+      input_b              => slv_multiply_input_b,
       output               => slv_mul_result,
       finished             => slv_finished_multiply_elements
     );
@@ -87,17 +89,21 @@ begin
 
       if (slv_state = idle) then
         if (start_mul = '1') then
-          slv_state                   <= in_multiplication;
-          slv_start_multiply_elements <= '1';
+          slv_state <= in_multiplication;
 
-          slv_result       <= (others => (others => (others => '0')));
-          slv_input_matrix <= input_matrix;
+          slv_result <= (others => (others => (others => '0')));
+          -- slv_input_matrix <= input_matrix;
 
           slv_index_col <= 0;
           slv_index_row <= 0;
         end if;
       --
       elsif (slv_state = in_multiplication) then
+        slv_multiply_input_a <= input_matrix(slv_index_col, slv_index_row);
+        slv_multiply_input_b <= input_vector(slv_index_row);
+
+        slv_start_multiply_elements <= '1';
+
         if (slv_finished_multiply_elements = '1') then
           slv_state <= done_multiplication;
         end if;

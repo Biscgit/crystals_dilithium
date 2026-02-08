@@ -8,7 +8,7 @@ library work;
 entity e_key_generation is
   port (
     clock            : in    std_logic;
-    matrix_a         : in    a_array; -- a is already in ntt form
+    matrix_a         : in    t_a_matrix; -- a is already in ntt form
     vector_s1        : in    s1;
     vector_s2        : in    s2;
     vector_t         : out   t;
@@ -32,7 +32,7 @@ architecture a_key_generation of e_key_generation is
   component matrix_mul_vector is
     port (
       clock        : in    std_logic;
-      input_matrix : in    a_array;
+      input_matrix : in    t_a_matrix;
       input_vector : in    s1;
       output       : out   s2;
       start_mul    : in    std_logic;
@@ -59,7 +59,7 @@ architecture a_key_generation of e_key_generation is
 
   signal slv_state : t_gen_state;
 
-  signal slv_matrix_a      : a_array;
+  -- signal slv_matrix_a      : t_a_matrix;
   signal slv_vector_s1     : s1;
   signal slv_vector_s1_ntt : s1;
   signal slv_vector_s2     : s2;
@@ -86,7 +86,7 @@ begin
   a_s_multiplier : component matrix_mul_vector
     port map (
       clock        => clock,
-      input_matrix => slv_matrix_a,
+      input_matrix => matrix_a,
       input_vector => slv_vector_s1_ntt,
       output       => slv_matrix_mul_result,
       start_mul    => slv_start_matrix_mul,
@@ -123,7 +123,7 @@ begin
         if (start_generation = '1') then
           slv_state <= ntt_s1;
 
-          slv_matrix_a  <= matrix_a;
+          -- slv_matrix_a  <= matrix_a;
           slv_vector_s1 <= vector_s1;
           slv_vector_s2 <= vector_s2;
         end if;

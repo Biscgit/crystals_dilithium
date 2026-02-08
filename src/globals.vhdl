@@ -20,7 +20,7 @@ package globals is
   constant eta    : integer := 2;
   constant beta   : integer := tau * eta;
   constant omega  : integer := 75;
-  constant n      : integer := 8;
+  constant n      : integer := 16;
   constant qinv   : integer := 58728449;
 
   -- generictypes
@@ -55,9 +55,13 @@ package globals is
 
   subtype t is natural_vector(k - 1 downto 0);
 
-  type natural_array is array (natural range <>) of vector;
+  type natural_matrix is array(natural range <>, natural range <>) of polynomial;
 
-  subtype a_array is natural_array(k - 1 downto 0);
+  subtype t_a_matrix is natural_matrix(k - 1 downto 0, l - 1 downto 0);
+
+  -- type natural_array is array (natural range <>) of vector;
+
+  -- subtype a_array is natural_array(k - 1 downto 0);
 
   -- Signing
 
