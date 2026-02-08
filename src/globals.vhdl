@@ -20,7 +20,7 @@ package globals is
   constant eta    : integer := 2;
   constant beta   : integer := tau * eta;
   constant omega  : integer := 75;
-  constant n      : integer := 8;
+  constant n      : integer := 256;
   constant qinv   : integer := 58728449;
 
   -- generictypes

@@ -18,9 +18,10 @@ end entity ntt_butterfly;
 
 architecture a_ntt_butterfly of ntt_butterfly is
 
-  signal product         : signed(63 downto 0);
-  signal prod_times_qinv : signed(127 downto 0);
+  signal product         : signed(45 downto 0);
+  signal prod_times_qinv : signed(product'length * 2 - 1 downto 0);
   signal k_factor        : signed(63 downto 0);
+  signal correction_term : signed(k_factor'length * 2 - 1 downto 0) := (others => '0');
   signal montgomery_out  : signed(31 downto 0);
 
   signal v_zeta  : coefficient;
@@ -30,29 +31,26 @@ architecture a_ntt_butterfly of ntt_butterfly is
 begin
 
   -- 1. Montgomery Multiplier (v * zeta)
-  product         <= resize(v_in * zeta, 64);
+  product         <= resize(v_in * zeta, 46);
   prod_times_qinv <= product * qinv; -- qinv from globals
   k_factor        <= x"0000_0000" & prod_times_qinv(31 downto 0);
-
+  correction_term <= (product - k_factor * q);
+  montgomery_out  <= correction_term(64 - 1 downto 32);
   -- This logic matches your ntt_node exactly
   -- montgomery_out is the result of (product - k_factor * q) >> 32
-  process (clock) is
-
-    variable correction : signed(127 downto 0); -- Using a temp for the large product
-
-  begin
-
-    if rising_edge(clock) then
-      montgomery_out <= resize((product - k_factor * q) / x"1_0000_0000", 32);
-    end if;
-
-  end process;
+  -- process (clock) is
+  -- begin
+  --
+  --   if rising_edge(clock) then
+  --   end if;
+  --
+  -- end process;
 
   v_zeta <= resize(montgomery_out, q_len + 1);
 
   -- 2. Add/Sub logic
-  sum_raw <= resize(u_in, q_len + 2) + resize(v_zeta, q_len + 2);
-  sub_raw <= resize(u_in, q_len + 2) - resize(v_zeta, q_len + 2);
+  sum_raw <= resize(u_in, q_len + 2) + v_zeta;
+  sub_raw <= resize(u_in, q_len + 2) - v_zeta;
 
   process (clock) is
   begin

@@ -17,15 +17,15 @@ end entity ntt_controller;
 
 architecture a_ntt_controller of ntt_controller is
 
-    component ntt_top_pipelined is
-  port (
-    clock : in    std_logic;
-    start : in    std_logic;
-    din   : in    coefficient;
-    dout  : out   coefficient;
-    done  : out   std_logic
-  );
-end component ntt_top_pipelined;
+  component ntt_top_pipelined is
+    port (
+      clock : in    std_logic;
+      start : in    std_logic;
+      din   : in    coefficient;
+      dout  : out   coefficient;
+      done  : out   std_logic
+    );
+  end component ntt_top_pipelined;
 
   component ntt_node is
     generic (
@@ -166,11 +166,11 @@ begin
 
   new_ntt : component ntt_top_pipelined
     port map (
-      clock     => clock,
-      start     => ntt_start,
-      din       => ntt_din,
-      dout      => ntt_dout,
-      done => ntt_valid_out 
+      clock => clock,
+      start => ntt_start,
+      din   => ntt_din,
+      dout  => ntt_dout,
+      done  => ntt_valid_out
     );
 
 end architecture a_ntt_controller;

@@ -18,8 +18,8 @@ architecture sim of tb_ntt_controller is
   signal start_ntt : std_logic := '0';
   signal finished  : std_logic;
 
-  signal input_poly  : polynomial := (others => (others => '0'));
-  signal output_poly : polynomial;
+  signal input_poly  : natural_vector(0 downto 0) := (others => (others => (others => '0')));
+  signal output_poly : natural_vector(0 downto 0);
 
   constant clk_period : time := 10 ns;
 
@@ -59,7 +59,7 @@ begin
     ------------------------------------------------------------
     for i in 0 to n - 1 loop
 
-      input_poly(i) <= to_signed(values(i), q_len + 1);
+      input_poly(0)(i) <= to_signed(values(i), q_len + 1);
 
     end loop;
 
@@ -88,14 +88,14 @@ begin
 
       -- Check for mismatch (Notice the logic is inverted from '=' to '/=')
       -- Preserving your index logic: output_poly(n-i-1) vs results(i)
-      if (output_poly(n - i - 1) /= results(i)) then
+      if (output_poly(0)(n - i - 1) /= results(i)) then
         -- Mark test as failed
         all_correct := false;
 
         -- Report only the specific failure
         report "Mismatch at index " & integer'image(i) &
                " (Output Index " & integer'image(n - i - 1) & ")" &
-               "  got=" & integer'image(to_integer(output_poly(n - i - 1))) &
+               "  got=" & integer'image(to_integer(output_poly(0)(n - i - 1))) &
                "  exp=" & integer'image(results(i))
           severity error;
       end if;

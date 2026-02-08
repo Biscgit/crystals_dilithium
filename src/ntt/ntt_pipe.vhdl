@@ -4,7 +4,6 @@ library ieee;
 
 library work;
   use work.globals.all;
-  use work.zeta_lut.all;
 
 entity ntt_top_pipelined is
   port (
@@ -26,29 +25,6 @@ architecture a_ntt_top_pipelined of ntt_top_pipelined is
   type t_pipe_wire is array (0 to 8) of coefficient;
 
   signal pipe : t_pipe_wire;
-
-  -- Zeta ROM lookup (This uses your inv_mont_reduce(zeta**i) logic)
-
-  function get_zeta_idx (
-    s : integer;
-    c : unsigned
-  ) return integer is
-
-    variable base   : integer;
-    variable offset : integer;
-
-  begin
-
-    base := 2 ** s;
-
-    if (s = 0) then
-      return 1;
-    else
-      -- Extract the bits from the counter to find the current zeta in the stage
-      return base + to_integer(c(7 downto 8 - s));
-    end if;
-
-  end function get_zeta_idx;
 
 begin
 
@@ -85,7 +61,6 @@ begin
         clock => clock,
         en    => active,
         cnt   => counter,
-        zeta  => to_signed(zetas(get_zeta_idx(i, counter)), q_len + 1),
         din   => pipe(i),
         dout  => pipe(i + 1)
       );
