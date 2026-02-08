@@ -20,9 +20,12 @@ architecture a_matrix_mul_vector of matrix_mul_vector is
 
   component polynomial_element_mul is
     port (
-      input_a : in    natural_polynomial;
-      input_b : in    natural_polynomial;
-      output  : out   natural_polynomial
+      clock                : in    std_logic;
+      start_multiplication : in    std_logic;
+      input_a              : in    natural_polynomial;
+      input_b              : in    natural_polynomial;
+      output               : out   natural_polynomial;
+      finished             : out   std_logic
     );
   end component polynomial_element_mul;
 
@@ -34,7 +37,7 @@ architecture a_matrix_mul_vector of matrix_mul_vector is
     );
   end component polynomial_add;
 
-  type t_state is (idle, run, done);
+  type t_state is (idle, in_multiplication, done_multiplication, done);
 
   signal slv_state        : t_state;
   signal slv_input_matrix : a_array;
@@ -49,6 +52,9 @@ architecture a_matrix_mul_vector of matrix_mul_vector is
 
   signal slv_result : s2;
 
+  signal slv_start_multiply_elements    : std_logic;
+  signal slv_finished_multiply_elements : std_logic;
+
 begin
 
   output <= slv_result;
@@ -56,9 +62,12 @@ begin
   -- store multiplication result
   p_multiply_elements : component polynomial_element_mul
     port map (
-      input_a => slv_input_matrix(slv_index_col)(slv_index_row),
-      input_b => input_vector(slv_index_row),
-      output  => slv_mul_result
+      clock                => clock,
+      start_multiplication => slv_start_multiply_elements,
+      input_a              => slv_input_matrix(slv_index_col)(slv_index_row),
+      input_b              => input_vector(slv_index_row),
+      output               => slv_mul_result,
+      finished             => slv_finished_multiply_elements
     );
 
   -- calculate sum and store into temporary variable
@@ -74,9 +83,12 @@ begin
   begin
 
     if rising_edge(clock) then
+      slv_start_multiply_elements <= '0';
+
       if (slv_state = idle) then
         if (start_mul = '1') then
-          slv_state <= run;
+          slv_state                   <= in_multiplication;
+          slv_start_multiply_elements <= '1';
 
           slv_result       <= (others => (others => (others => '0')));
           slv_input_matrix <= input_matrix;
@@ -85,7 +97,11 @@ begin
           slv_index_row <= 0;
         end if;
       --
-      elsif (slv_state = run) then
+      elsif (slv_state = in_multiplication) then
+        if (slv_finished_multiply_elements = '1') then
+          slv_state <= done_multiplication;
+        end if;
+      elsif (slv_state = done_multiplication) then
         -- reset counter and sum up array in last additional step
         if (slv_index_row = l) then
           slv_index_row <= 0;
@@ -98,12 +114,14 @@ begin
         -- multiply and add other to other
         else
           slv_current_mul <= slv_next_mul;
-        -- slv_next_mul    <= (others => (others => '0'));  -- TODO: ERROR WITH RESETTING!!
         end if;
 
         -- calculate
         if ((slv_index_col = (k - 1)) and (slv_index_row = l)) then
           slv_state <= done;
+        else
+          slv_start_multiply_elements <= '1';
+          slv_state                   <= in_multiplication;
         end if;
 
       --
