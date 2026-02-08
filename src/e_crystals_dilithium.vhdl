@@ -18,7 +18,7 @@ architecture a_crystals_dilithium of e_crystals_dilithium is
   component e_key_generation is
     port (
       clock            : in    std_logic;
-      matrix_a         : in    a_array; -- a is already in ntt form
+      matrix_a         : in    a_array;
       vector_s1        : in    s1;
       vector_s2        : in    s2;
       vector_t         : out   t;
@@ -28,19 +28,21 @@ architecture a_crystals_dilithium of e_crystals_dilithium is
   end component e_key_generation;
 
   -- signal a : polynomial := (others => (others => '1'));
-  signal slv_state_gen: std_logic;
-begin
-    slv_state_gen <= not SW(0);
+  signal slv_state_gen : std_logic;
 
-  key_gen:  component e_key_generation
-  port map(
-    clock            => clock_50,
-    matrix_a         => (others => (others => (others => (others => '0')))),
-    vector_s1        => (others => (others => (others => '0'))),
-    vector_s2        => (others => (others => (others => '0'))),
-    vector_t         => open,
-    start_generation => slv_state_gen,
-    has_finished     => ledr(0)
-  );
+begin
+
+  slv_state_gen <= not sw(0);
+
+  key_gen : component e_key_generation
+    port map (
+      clock            => clock_50,
+      matrix_a         => (others => (others => (others => (others => '0')))),
+      vector_s1        => (others => (others => (others => '0'))),
+      vector_s2        => (others => (others => (others => '0'))),
+      vector_t         => open,
+      start_generation => slv_state_gen,
+      has_finished     => ledr(0)
+    );
 
 end architecture a_crystals_dilithium;
