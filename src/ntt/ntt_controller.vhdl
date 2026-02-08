@@ -42,8 +42,8 @@ architecture a_ntt_controller of ntt_controller is
   signal slv_vector_output   : natural_vector(output'range);
   signal slv_computing_start : std_logic;
 
-  signal slv_ntt_input  : natural_polynomial(input'range);
-  signal slv_ntt_output : natural_polynomial(input'range);
+  signal slv_ntt_input  : polynomial;
+  signal slv_ntt_output : polynomial;
 
   signal slv_vector_index : natural;
 

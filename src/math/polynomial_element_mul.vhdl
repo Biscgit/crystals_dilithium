@@ -15,14 +15,17 @@ end entity polynomial_element_mul;
 
 architecture a_polynomial_element_mul of polynomial_element_mul is
 
-  signal slv_cache : natural_polynomial(input_a'length + input_b'length - 1 downto 0);
+  type poly_cache is array (output'range) of mul_coefficient;
+
+  signal slv_cache : poly_cache;
 
 begin
 
-  g_vector_sum : for i in polynomial'range generate
+  g_vector_sum : for i in input_a'range generate
     -- ToDo: adjust mod!
     slv_cache(i) <= (input_a(i) * input_b(i)) mod q;
-    output(i)    <= slv_cache(i)(output'range);
+    output(i)    <= resize(slv_cache(i), coefficient'length);
+
   end generate g_vector_sum;
 
 end architecture a_polynomial_element_mul;

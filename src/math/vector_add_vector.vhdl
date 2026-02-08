@@ -15,11 +15,11 @@ end entity vector_add_vector;
 
 architecture a_vector_add_vector of vector_add_vector is
 
-  signal slv_result : natural_vector;
+  signal slv_result : natural_vector(output'range);
 
 begin
 
-  output <= slv_result;
+  -- output <= slv_result;
 
   gen_row : for i in input_vector1'range generate
   begin

@@ -36,7 +36,8 @@ architecture a_matrix_mul_vector of matrix_mul_vector is
 
   type t_state is (idle, run, done);
 
-  signal slv_state : t_state;
+  signal slv_state        : t_state;
+  signal slv_input_matrix : a_array;
 
   signal slv_index_col : integer range 0 to k - 1;
   signal slv_index_row : integer range 0 to l;
@@ -55,7 +56,7 @@ begin
   -- store multiplication result
   p_multiply_elements : component polynomial_element_mul
     port map (
-      input_a => input_matrix(slv_index_col)(slv_index_row),
+      input_a => slv_input_matrix(slv_index_col)(slv_index_row),
       input_b => input_vector(slv_index_row),
       output  => slv_mul_result
     );
@@ -77,8 +78,8 @@ begin
         if (start_mul = '1') then
           slv_state <= run;
 
-          slv_result <= (others => (others => (others => '0')));
-          -- slv_temporary <= (others => (others => 0));
+          slv_result       <= (others => (others => (others => '0')));
+          slv_input_matrix <= input_matrix;
 
           slv_index_col <= 0;
           slv_index_row <= 0;
@@ -92,11 +93,12 @@ begin
 
           -- write into temporary storage
           slv_result(slv_index_col) <= slv_next_mul;
+          slv_current_mul           <= (others => (others => '0'));
 
         -- multiply and add other to other
         else
           slv_current_mul <= slv_next_mul;
-          slv_next_mul    <= (others => (others => '0'));
+        -- slv_next_mul    <= (others => (others => '0'));  -- TODO: ERROR WITH RESETTING!!
         end if;
 
         -- calculate

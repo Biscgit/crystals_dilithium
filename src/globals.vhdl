@@ -20,14 +20,16 @@ package globals is
   constant eta    : integer := 2;
   constant beta   : integer := tau * eta;
   constant omega  : integer := 75;
-  constant n      : integer := 256;
+  constant n      : integer := 8;
   constant qinv   : integer := 58728449;
 
   -- generictypes
 
-  subtype modq_t is integer range 0 to q - 1;
+  subtype modq_t is integer range q - 1 downto 0;
 
   subtype coefficient is signed(q_len downto 0);
+
+  subtype mul_coefficient is signed(coefficient'length * 2 - 1 downto 0);
 
   -- subtype small_coefficient is signed(eta downto 0);
 
