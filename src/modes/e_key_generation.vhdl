@@ -146,6 +146,7 @@ begin
 
       --
       elsif (slv_state = intt) then
+          slv_state <= add_s2;
       --
       elsif (slv_state = add_s2) then
         slv_as1_input <= slv_matrix_mul_result;

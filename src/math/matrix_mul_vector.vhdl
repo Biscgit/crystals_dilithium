@@ -102,7 +102,7 @@ begin
         end if;
 
         -- calculate
-        if ((slv_index_col = k) and (slv_index_row = l)) then
+        if ((slv_index_col = (k - 1)) and (slv_index_row = l)) then
           slv_state <= done;
         end if;
 

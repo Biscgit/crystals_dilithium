@@ -15,27 +15,32 @@ end entity e_crystals_dilithium;
 
 architecture a_crystals_dilithium of e_crystals_dilithium is
 
-  component ntt_controller is
+  component e_key_generation is
     port (
-      clock     : in    std_logic;
-      input     : in    polynomial;
-      output    : out   polynomial;
-      start_ntt : in    std_logic;
-      finished  : out   std_logic
+      clock            : in    std_logic;
+      matrix_a         : in    a_array; -- a is already in ntt form
+      vector_s1        : in    s1;
+      vector_s2        : in    s2;
+      vector_t         : out   t;
+      start_generation : in    std_logic;
+      has_finished     : out   std_logic
     );
-  end component ntt_controller;
+  end component e_key_generation;
 
-  signal a : polynomial := (others => (others => '1'));
-
+  -- signal a : polynomial := (others => (others => '1'));
+  signal slv_state_gen: std_logic;
 begin
+    slv_state_gen <= not SW(0);
 
-  test : component ntt_controller
-    port map (
-      clock     => clock_50,
-      input     => a,
-      output    => open,
-      start_ntt => sw(0),
-      finished  => ledr(0)
-    );
+  key_gen:  component e_key_generation
+  port map(
+    clock            => clock_50,
+    matrix_a         => (others => (others => (others => (others => '0')))),
+    vector_s1        => (others => (others => (others => '0'))),
+    vector_s2        => (others => (others => (others => '0'))),
+    vector_t         => open,
+    start_generation => slv_state_gen,
+    has_finished     => ledr(0)
+  );
 
 end architecture a_crystals_dilithium;
