@@ -183,13 +183,13 @@ begin
       dout_valid  => slv_hash_output_valid
     );
 
-  high_low_bits : component decompose
-    port map (
-      r  => slv_vector_a,
-      a  => 2 * y2,
-      r0 => ,
-r1 => 
-    );
+--   high_low_bits : component decompose
+--     port map (
+--       r  => slv_vector_a,
+--       a  => 2 * y2,
+--       r0 => ,
+-- r1 => 
+--     );
 
   p_fsm_signing : process (clock, slv_state) is
   begin
@@ -241,6 +241,7 @@ r1 =>
 
           if (message_index >= slv_message'length) then
             slv_state <= s_compute_c;
+            slv_hash_last_block  <= '1';
           end if;
           slv_hash_input <= slv_message(message_index);
 

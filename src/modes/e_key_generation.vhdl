@@ -10,7 +10,7 @@ entity e_key_generation is
     clock            : in    std_logic;
     matrix_a         : in    a_array; -- a is already in ntt form
     vector_s1        : in    s1;
-    vector_s2        : in    s1;
+    vector_s2        : in    s2;
     vector_t         : out   s2;
     start_generation : in    std_logic;
     has_finished     : out   std_logic
