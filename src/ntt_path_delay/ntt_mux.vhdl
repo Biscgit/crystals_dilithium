@@ -1,0 +1,29 @@
+-- library ieee;
+--  use ieee.std_logic_1164.all;
+--  use ieee.numeric_std.all;
+--
+-- library work;
+--  use work.globals.all;
+--
+-- entity ntt_mux is
+--  port (
+--    selector   : in    natural;
+--    variable_0 : in    polynomial;
+--    variable_1 : in    polynomial;
+--    variable_2 : in    polynomial
+--  );
+-- end entity ntt_mux;
+--
+-- architecture a_ntt_mux of ntt_mux is
+--
+--  signal ntt_input : polynomial;
+--
+-- begin
+--
+--  with selector select y <=
+--    variable_0 when 0,
+--    variable_1 when 1,
+--    variable_2 when 2,
+--    (others => (others => '0')) when others;
+--
+-- end architecture a_ntt_mux;
