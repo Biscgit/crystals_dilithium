@@ -138,7 +138,6 @@ set_global_assignment -name VHDL_FILE src/zeta_lut.vhdl
 set_global_assignment -name SDC_FILE clock.sdc
 set_global_assignment -name VHDL_FILE src/countdown_clock.vhd
 set_global_assignment -name VHDL_FILE src/globals.vhdl
-set_global_assignment -name VHDL_FILE src/power2round.vhdl
 set_global_assignment -name VHDL_FILE src/decompose.vhdl
 set_global_assignment -name VHDL_FILE src/e_crystals_dilithium.vhdl
 set_global_assignment -name VHDL_FILE lib/Keccak/e_keccak/keccak.vhd

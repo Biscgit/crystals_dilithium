@@ -7,23 +7,25 @@ library work;
 
 entity decompose is
   port (
-    r  : in    coefficient;
-    a  : in    coefficient;
-    r0 : out   coefficient;
-    r1 : out   coefficient
+    r  : in    natural_polynomial;
+    a  : in    natural;
+    r0 : out   natural_polynomial;
+    r1 : out   natural_polynomial
   );
 end entity decompose;
 
 architecture a_decompose of decompose is
 
-  signal r0_temp : coefficient;
+  signal r0_temp : natural_polynomial;
 
 begin
 
-  r0_temp <= r when r < '0' & a(q_len - 1 downto 1) else -- r mods a
-             r - a;
+  high_low_bits : for i in 0 to r'length generate
+    r0_temp(i) <= r(i) mod a when r(i) mod a <= a / 2 else -- r mods a
+                  r(i) - a;
 
-  r1 <= (r - r0_temp) / a;
-  r0 <= r0_temp;
+    r1(i) <= (r(i) - r0_temp(i)) / a;
+    r0    <= r0_temp;
+  end generate high_low_bits;
 
 end architecture a_decompose;

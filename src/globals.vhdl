@@ -59,11 +59,13 @@ package globals is
 
   -- Signing
 
-  type y is array (l - 1 downto 0) of y2_polynomial;
+  subtype y is natural_vector (l - 1 downto 0);
 
-  type w is array (k - 1 downto 0) of polynomial;
+  subtype w is natural_vector(k - 1 downto 0);
 
-  type z is array (l - 1 downto 0) of polynomial;
+  subtype z is natural_vector (l - 1 downto 0);
+
+  type m is array (natural range <>) of std_logic_vector(63 downto 0);
 
 -- Verification
 
