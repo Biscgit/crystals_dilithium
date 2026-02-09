@@ -8,10 +8,10 @@ library work;
 entity e_key_generation is
   port (
     clock            : in    std_logic;
-    matrix_a         : in    a_array; -- a is already in ntt form
+    matrix_a         : in    t_a_matrix; -- a is already in ntt form
     vector_s1        : in    s1;
     vector_s2        : in    s2;
-    vector_t         : out   s2;
+    vector_t         : out   t;
     start_generation : in    std_logic;
     has_finished     : out   std_logic
   );
@@ -19,10 +19,20 @@ end entity e_key_generation;
 
 architecture a_key_generation of e_key_generation is
 
+  component ntt_controller is
+    port (
+      clock     : in    std_logic;
+      input     : in    natural_vector;
+      output    : out   natural_vector;
+      start_ntt : in    std_logic;
+      finished  : out   std_logic
+    );
+  end component ntt_controller;
+
   component matrix_mul_vector is
     port (
       clock        : in    std_logic;
-      input_matrix : in    a_array;
+      input_matrix : in    t_a_matrix;
       input_vector : in    s1;
       output       : out   s2;
       start_mul    : in    std_logic;
@@ -49,9 +59,10 @@ architecture a_key_generation of e_key_generation is
 
   signal slv_state : t_gen_state;
 
-  signal slv_matrix_a  : a_array;
-  signal slv_vector_s1 : s1;
-  signal slv_vector_s2 : s2;
+  -- signal slv_matrix_a      : t_a_matrix;
+  signal slv_vector_s1     : s1;
+  signal slv_vector_s1_ntt : s1;
+  signal slv_vector_s2     : s2;
 
   signal slv_matrix_mul_result   : s2;
   signal slv_start_matrix_mul    : std_logic;
@@ -59,6 +70,11 @@ architecture a_key_generation of e_key_generation is
   signal slv_as1_input           : s2;
 
   signal slv_vector_t : s2;
+
+  signal slv_ntt_input    : s1;
+  signal slv_ntt_output   : s1;
+  signal slv_ntt_start    : std_logic;
+  signal slv_ntt_finished : std_logic;
 
 begin
 
@@ -70,8 +86,8 @@ begin
   a_s_multiplier : component matrix_mul_vector
     port map (
       clock        => clock,
-      input_matrix => slv_matrix_a,
-      input_vector => slv_vector_s1,
+      input_matrix => matrix_a,
+      input_vector => slv_vector_s1_ntt,
       output       => slv_matrix_mul_result,
       start_mul    => slv_start_matrix_mul,
       finished     => slv_finished_matrix_mul
@@ -84,27 +100,44 @@ begin
       output        => slv_vector_t
     );
 
+  -- ntt
+  ntt : component ntt_controller
+    port map (
+      clock     => clock,
+      input     => slv_ntt_input,
+      output    => slv_ntt_output,
+      start_ntt => slv_ntt_start,
+      finished  => slv_ntt_finished
+    );
+
   -- main state machine for key generation
   p_fsm_generation : process (clock, slv_state) is
   begin
 
     if rising_edge(clock) then
-      has_finished <= '0';
+      has_finished  <= '0';
+      slv_ntt_start <= '0';
+
       --
       if (slv_state = idle) then
         if (start_generation = '1') then
           slv_state <= ntt_s1;
 
-          slv_matrix_a  <= matrix_a;
+          -- slv_matrix_a  <= matrix_a;
           slv_vector_s1 <= vector_s1;
           slv_vector_s2 <= vector_s2;
-
-        -- slv_acc_poly <= (others => (others => '0'));
-        -- slv_vector_t <= (others => (others => '0'));
         end if;
 
       --
       elsif (slv_state = ntt_s1) then
+        slv_ntt_start     <= '1';
+        slv_ntt_input     <= slv_vector_s1;
+        slv_vector_s1_ntt <= slv_ntt_output;
+
+        if (slv_ntt_finished = '1') then
+          slv_state <= multiply_a_s1;
+        end if;
+
       ---
       elsif (slv_state = multiply_a_s1) then
         if (slv_finished_matrix_mul = '1') then
@@ -113,6 +146,7 @@ begin
 
       --
       elsif (slv_state = intt) then
+        slv_state <= add_s2;
       --
       elsif (slv_state = add_s2) then
         slv_as1_input <= slv_matrix_mul_result;
