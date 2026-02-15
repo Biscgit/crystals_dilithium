@@ -1,0 +1,5 @@
+*.bak
+incremental_db/
+output_files/
+db/
+lib/Keccak/db/
